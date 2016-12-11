@@ -67,3 +67,7 @@ void ChessBoard::movePiece(string piece, int origin, int dest){
 
 }
 
+void ChessBoard::removePiece (int position ){
+	pieceMap[boardMap[position]]->number --;
+}
+

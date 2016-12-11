@@ -69,6 +69,7 @@ class ChessBoard {
 
 	// Piece function
 	void 	movePiece	(int origin, int dest);
+	void	removePiece	(int position);
 	~ChessBoard			();
 };
 
@@ -81,7 +82,6 @@ class Piece {
 		ChessBoard *chboard;	
 	public:
 		virtual bool move(int orgin, int dest);
-		virtual void remove(int position);
 		void messageError();
 };
 
