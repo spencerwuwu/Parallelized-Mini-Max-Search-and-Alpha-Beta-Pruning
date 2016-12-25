@@ -3,7 +3,10 @@
 #include <string>
 using namespace std;
 
-#include <ChessBoard.hpp>
+#define WHITE 0
+#define BLACK 1
+
+#include "ChessBoard.hpp"
 
 
 bool King::move( int origin, int dest){
@@ -25,7 +28,7 @@ bool Queen::move(int origin, int dest){
 			return true;
 		}
 		else{
-			if ( chboard->pieceMap[chboard->boardMap[dest]].color != this.color ){
+			if ( chboard->pieceMap[chboard->boardMap[dest]]->color != this->color ){
 				chboard->removePiece(dest);
 				chboard->boardMap[dest] = chboard->boardMap[origin];
 				chboard->boardMap[origin] = epc_empty;
@@ -49,7 +52,7 @@ bool Bishop::move(int origin, int dest){
 			return true;
 		}
 		else{
-			if ( chboard->pieceMap[chboard->boardMap[dest]].color != this.color ){
+			if ( chboard->pieceMap[chboard->boardMap[dest]]->color != this->color ){
 				chboard->removePiece(dest);
 				chboard->boardMap[dest] = chboard->boardMap[origin];
 				chboard->boardMap[origin] = epc_empty;
@@ -72,7 +75,7 @@ bool Knight::move(int origin, int dest){
 			return true;
 		}
 		else{
-			if ( chboard->pieceMap[chboard->boardMap[dest]].color != this.color ){
+			if ( chboard->pieceMap[chboard->boardMap[dest]]->color != this->color ){
 				chboard->removePiece(dest);
 				chboard->boardMap[dest] = chboard->boardMap[origin];
 				chboard->boardMap[origin] = epc_empty;
@@ -86,7 +89,7 @@ bool Knight::move(int origin, int dest){
 bool Pawn::move(int origin, int dest){
 	// check aviability of movement
 	// if haven't moved
-	if( this.color==WHITE ){  // white
+	if( this->color==WHITE ){  // white
 		if ( origin/8==6 ){					 // haven't been moved
 			if ( ( dest==origin-8 ) || ( dest==origin-16 ) ){
 				//apply move
@@ -96,7 +99,7 @@ bool Pawn::move(int origin, int dest){
 					return true;
 				}
 				else{
-					if ( chboard->pieceMap[chboard->boardMap[dest]].color != this.color ){
+					if ( chboard->pieceMap[chboard->boardMap[dest]]->color != this->color ){
 						chboard->removePiece(dest);
 						chboard->boardMap[dest] = chboard->boardMap[origin];
 						chboard->boardMap[origin] = epc_empty;
@@ -115,7 +118,7 @@ bool Pawn::move(int origin, int dest){
 					return true;
 				}
 				else{
-					if ( chboard->pieceMap[chboard->boardMap[dest]].color != this.color ){
+					if ( chboard->pieceMap[chboard->boardMap[dest]]->color != this->color ){
 						chboard->removePiece(dest);
 						chboard->boardMap[dest] = chboard->boardMap[origin];
 						chboard->boardMap[origin] = epc_empty;
@@ -136,7 +139,7 @@ bool Pawn::move(int origin, int dest){
 					return true;
 				}
 				else{
-					if ( chboard->pieceMap[chboard->boardMap[dest]].color != this.color ){
+					if ( chboard->pieceMap[chboard->boardMap[dest]]->color != this->color ){
 						chboard->removePiece(dest);
 						chboard->boardMap[dest] = chboard->boardMap[origin];
 						chboard->boardMap[origin] = epc_empty;
@@ -155,7 +158,7 @@ bool Pawn::move(int origin, int dest){
 					return true;
 				}
 				else{
-					if ( chboard->pieceMap[chboard->boardMap[dest]].color != this.color ){
+					if ( chboard->pieceMap[chboard->boardMap[dest]]->color != this->color ){
 						chboard->removePiece(dest);
 						chboard->boardMap[dest] = chboard->boardMap[origin];
 						chboard->boardMap[origin] = epc_empty;
@@ -164,6 +167,7 @@ bool Pawn::move(int origin, int dest){
 					else return false;
 				}
 			}
+			else return false;
 		}
 	}
 }

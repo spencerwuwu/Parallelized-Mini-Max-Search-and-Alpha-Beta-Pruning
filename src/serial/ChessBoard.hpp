@@ -52,23 +52,31 @@ enum EPieceCode
 	epc_bking   = ept_king   + epc_blacky,
 };
 
+class Piece;
 
 class ChessBoard {
-	private:
-		int boardMap[64]; 
-		map<int,*Pieces> pieceMap;
-		void initiate	();
 
 	public:
-	ChessBoard			();
-	void	resetBoard	();
-	void	messageError();
+		int boardMap[64]; 
+		map<int,Piece*> pieceMap;
+		void initiate	();
+
+
+		ChessBoard			();
+		void 	print		();
+		void	resetBoard	();
+		void	messageError();
+
+		ChessBoard			(const ChessBoard &obj );
+
+
+	friend class Piece;
 
 	//value obtain
 	bool 	checkPiecePosition(string piece, int position);
 
 	// Piece function
-	void 	movePiece	(int origin, int dest);
+	void 	movePiece	(string piece, int origin, int dest);
 	void	removePiece	(int position);
 	~ChessBoard			();
 };
@@ -77,10 +85,10 @@ class Piece {
 	friend class ChessBoard;
 
 	protected:
+	public:
 		int number;
 		int color;
 		ChessBoard *chboard;	
-	public:
 		virtual bool move(int orgin, int dest);
 		void messageError();
 };
@@ -112,6 +120,7 @@ class Queen : public Piece {
 			chboard=board;
 			number=1;	
 		}
+		virtual bool move(int orgin, int dest);
 		~Queen() {}
 };
 class Bishop : public Piece {
@@ -126,6 +135,7 @@ class Bishop : public Piece {
 			chboard=board;
 			number=2;
 		}
+		virtual bool move(int orgin, int dest);
 		~Bishop() {}
 };
 class Knight : public Piece {
@@ -140,6 +150,7 @@ class Knight : public Piece {
 			chboard=board;
 			number=2;
 		}
+		virtual bool move(int orgin, int dest);
 		~Knight() {}
 };
 class Rook : public Piece {
@@ -154,6 +165,7 @@ class Rook : public Piece {
 			chboard=board;
 			number=2;
 		}
+		virtual bool move(int orgin, int dest);
 		~Rook() {}
 };
 class Pawn : public Piece {
@@ -168,5 +180,6 @@ class Pawn : public Piece {
 			chboard=board;
 			number=8;
 		}
+		virtual bool move(int orgin, int dest);
 		~Pawn() {}
 };
