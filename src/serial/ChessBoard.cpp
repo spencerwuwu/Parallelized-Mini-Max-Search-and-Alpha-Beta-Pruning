@@ -123,8 +123,18 @@ void ChessBoard::movePiece(string piece, int origin, int dest){
 	}
 	else 
 		messageError();
-
 }
+
+void ChessBoard::listAllMove(){
+	vector<ChessBoard*> *moves = new vector<ChessBoard*> ();
+	int turn = get_turn() ? Black : White;
+
+	for(int i=0;i<64;i++){
+		if ( pieceMap[boardMap[i]].color == turn ){
+		}
+}
+
+
 void ChessBoard::messageError(){
 	cout << "Error" << endl;
 }

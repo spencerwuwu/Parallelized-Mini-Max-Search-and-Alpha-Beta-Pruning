@@ -67,6 +67,8 @@ class ChessBoard {
 		void	resetBoard	();
 		void	messageError();
 
+		vector<ChessBoard*> listAllMove();
+
 		ChessBoard			(const ChessBoard &obj );
 
 
