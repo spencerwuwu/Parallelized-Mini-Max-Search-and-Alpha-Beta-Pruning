@@ -88,11 +88,14 @@ class Piece {
 
 	protected:
 	public:
-		int number;
-		int color;
-		ChessBoard *chboard;	
+		int			number;
+		int			color;
+		ChessBoard	*chboard;	
+
 		virtual bool move(int orgin, int dest);
 		void messageError();
+
+		Piece		(const Piece &obj);
 };
 
 class King : public Piece {

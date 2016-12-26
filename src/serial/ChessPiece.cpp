@@ -8,6 +8,10 @@ using namespace std;
 
 #include "ChessBoard.hpp"
 
+Piece::Piece(const Piece &obj){
+	number	= obj.number;
+	color	= obj.color;
+}
 
 bool King::move( int origin, int dest){
 	return false;
