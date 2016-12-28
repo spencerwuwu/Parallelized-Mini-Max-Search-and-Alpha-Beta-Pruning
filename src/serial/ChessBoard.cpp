@@ -17,46 +17,48 @@ ChessBoard::ChessBoard(const ChessBoard &obj ){
 	for(int i=0;i<64;i++){
 		boardMap[i]=obj.boardMap[i];
 	}
-	pieceMap[epc_wpawn]		= 	new Pawn(epc_wpawn, this);
-	pieceMap[epc_wknight]	=	new Knight(epc_wknight, this);
-	pieceMap[epc_wbishop]	=	new Bishop(epc_wbishop, this);
-	pieceMap[epc_wrook]		= 	new Rook(epc_wrook, this);
-	pieceMap[epc_wqueen]	= 	new Queen(epc_wqueen, this);
-	pieceMap[epc_wking]		= 	new King(epc_wking, this);
-	pieceMap[epc_bpawn]		= 	new Pawn(epc_bpawn, this);
-	pieceMap[epc_bknight]	=	new Knight(epc_bknight, this);
-	pieceMap[epc_bbishop]	=	new Bishop(epc_bbishop, this);
-	pieceMap[epc_brook]		= 	new Rook(epc_brook, this);
-	pieceMap[epc_bqueen]	= 	new Queen(epc_bqueen, this);
-	pieceMap[epc_bking]		= 	new King(epc_bking, this);
+	pieceMap[epc_wpawn]		= 	new Pawn(epc_wpawn);
+	pieceMap[epc_wknight]	=	new Knight(epc_wknight);
+	pieceMap[epc_wbishop]	=	new Bishop(epc_wbishop);
+	pieceMap[epc_wrook]		= 	new Rook(epc_wrook);
+	pieceMap[epc_wqueen]	= 	new Queen(epc_wqueen);
+	pieceMap[epc_wking]		= 	new King(epc_wking);
+	pieceMap[epc_bpawn]		= 	new Pawn(epc_bpawn);
+	pieceMap[epc_bknight]	=	new Knight(epc_bknight);
+	pieceMap[epc_bbishop]	=	new Bishop(epc_bbishop);
+	pieceMap[epc_brook]		= 	new Rook(epc_brook);
+	pieceMap[epc_bqueen]	= 	new Queen(epc_bqueen);
+	pieceMap[epc_bking]		= 	new King(epc_bking);
 
-	pieceMap[epc_wpawn]		= 	obj.pieceMap[epc_wpawn];
-	pieceMap[epc_wknight]	=	obj.pieceMap[epc_wknight];
-	pieceMap[epc_wbishop]	=	obj.pieceMap[epc_wbishop];
-	pieceMap[epc_wrook]		= 	obj.pieceMap[epc_wrook];
-	pieceMap[epc_wqueen]	= 	obj.pieceMap[epc_wqueen];
-	pieceMap[epc_wking]		= 	obj.pieceMap[epc_wking];
-	pieceMap[epc_bpawn]		= 	obj.pieceMap[epc_bpawn];
-	pieceMap[epc_bknight]	=	obj.pieceMap[epc_bknight];
-	pieceMap[epc_bbishop]	=	obj.pieceMap[epc_bbishop];
-	pieceMap[epc_brook]		= 	obj.pieceMap[epc_brook];
-	pieceMap[epc_bqueen]	= 	obj.pieceMap[epc_bqueen];
-	pieceMap[epc_bking]		= 	obj.pieceMap[epc_bking];
+	/*
+	pieceMap[epc_wpawn]->number		= 	obj.pieceMap[epc_wpawn]->getnum();
+	pieceMap[epc_wknight]->number	=	obj.pieceMap[epc_wknight]->getnum();
+	pieceMap[epc_wbishop]->number	=	obj.pieceMap[epc_wbishop]->getnum();
+	pieceMap[epc_wrook]->number		= 	obj.pieceMap[epc_wrook]->getnum();
+	pieceMap[epc_wqueen]->number	= 	obj.pieceMap[epc_wqueen]->getnum();
+	pieceMap[epc_wking]->number		= 	obj.pieceMap[epc_wking]->getnum();
+	pieceMap[epc_bpawn]->number		= 	obj.pieceMap[epc_bpawn]->getnum();
+	pieceMap[epc_bknight]->number	=	obj.pieceMap[epc_bknight]->getnum();
+	pieceMap[epc_bbishop]->number	=	obj.pieceMap[epc_bbishop]->getnum();
+	pieceMap[epc_brook]->number	= 	obj.pieceMap[epc_brook]->getnum();
+	pieceMap[epc_bqueen]->number	= 	obj.pieceMap[epc_bqueen]->getnum();
+	pieceMap[epc_bking]->number		= 	obj.pieceMap[epc_bking]->getnum();
+	*/
 }
 
 void ChessBoard::initiate(){
-	pieceMap[epc_wpawn]		= 	new Pawn(epc_wpawn, this);
-	pieceMap[epc_wknight]	=	new Knight(epc_wknight, this);
-	pieceMap[epc_wbishop]	=	new Bishop(epc_wbishop, this);
-	pieceMap[epc_wrook]		= 	new Rook(epc_wrook, this);
-	pieceMap[epc_wqueen]	= 	new Queen(epc_wqueen, this);
-	pieceMap[epc_wking]		= 	new King(epc_wking, this);
-	pieceMap[epc_bpawn]		= 	new Pawn(epc_bpawn, this);
-	pieceMap[epc_bknight]	=	new Knight(epc_bknight, this);
-	pieceMap[epc_bbishop]	=	new Bishop(epc_bbishop, this);
-	pieceMap[epc_brook]		= 	new Rook(epc_brook, this);
-	pieceMap[epc_bqueen]	= 	new Queen(epc_bqueen, this);
-	pieceMap[epc_bking]		= 	new King(epc_bking, this);
+	pieceMap[epc_wpawn]		= 	new Pawn(epc_wpawn);
+	pieceMap[epc_wknight]	=	new Knight(epc_wknight);
+	pieceMap[epc_wbishop]	=	new Bishop(epc_wbishop);
+	pieceMap[epc_wrook]		= 	new Rook(epc_wrook);
+	pieceMap[epc_wqueen]	= 	new Queen(epc_wqueen);
+	pieceMap[epc_wking]		= 	new King(epc_wking);
+	pieceMap[epc_bpawn]		= 	new Pawn(epc_bpawn);
+	pieceMap[epc_bknight]	=	new Knight(epc_bknight);
+	pieceMap[epc_bbishop]	=	new Bishop(epc_bbishop);
+	pieceMap[epc_brook]		= 	new Rook(epc_brook);
+	pieceMap[epc_bqueen]	= 	new Queen(epc_bqueen);
+	pieceMap[epc_bking]		= 	new King(epc_bking);
 
 	boardMap[a1] = epc_brook;
 	boardMap[b1] = epc_bknight;
@@ -65,7 +67,7 @@ void ChessBoard::initiate(){
 	boardMap[e1] = epc_bking;
 	boardMap[f1] = epc_bbishop;
 	boardMap[g1] = epc_bknight;
-	boardMap[f1] = epc_brook;
+	boardMap[h1] = epc_brook;
 	boardMap[a8] = epc_wrook;
 	boardMap[b8] = epc_wknight;
 	boardMap[c8] = epc_wbishop;
@@ -73,8 +75,8 @@ void ChessBoard::initiate(){
 	boardMap[e8] = epc_wking;
 	boardMap[f8] = epc_wbishop;
 	boardMap[g8] = epc_wknight;
-	boardMap[f8] = epc_wrook;
-	
+	boardMap[h8] = epc_wrook;
+
 	for( int i=8 ; i<=55 ; i++ ){
 		if ( i<=15 ){
 			boardMap[i] = epc_bpawn;
@@ -96,7 +98,7 @@ void ChessBoard::print(){
 		for(int j = 0 ; j < 8 ; j++){
 			switch (boardMap[i*8+j]) {
 				case epc_wpawn:		cout << "P|";
-								 	break;
+									break;
 				case epc_wknight:	cout << "K|";
 									break;
 				case epc_wbishop:	cout << "B|";
@@ -119,9 +121,11 @@ void ChessBoard::print(){
 									break;
 				case epc_bking:		cout << "k|";
 									break;
+				default:			cout << " |";
+									break;
 			}
 		}
-		cout << "|" << i+1 << endl ;
+		cout << "  " << i+1 << endl ;
 	}
 	cout << " - - - - - - - - " << endl << " a b c d e f g h " << endl;
 
@@ -132,13 +136,26 @@ bool checkPiecePosition(string piece, int position){
 }
 
 void ChessBoard::movePiece(string piece, int origin, int dest){
-	if( this->checkPiecePosition(piece, origin) ){
-		if( ! pieceMap[origin]->move(origin, dest) ) messageError();
+	int check=0;
+	if( 1 ){
+		if( boardMap[dest] == epc_empty ) check=1;
+		else if ( pieceMap[boardMap[dest]]->color != pieceMap[boardMap[origin]]->color ) check=1;
+
+		if( check == 1){
+			if( pieceMap[origin]->checkmove(origin, dest) ){
+				if( boardMap[dest] != 0){
+					removePiece(dest);
+				}
+				boardMap[dest]=boardMap[origin];
+				boardMap[origin]=0;
+			}
+			else messageError();
+		}
+		else messageError();
 	}
-	else 
-		messageError();
 }
 
+/*
 vector<ChessBoard*> ChessBoard::listAllMove(){
 	vector<ChessBoard*> *moves = new vector<ChessBoard*> ();
 	int turn = get_turn() ? Black : White;
@@ -158,6 +175,7 @@ vector<ChessBoard*> ChessBoard::listAllMove(){
 	return moves;
 }
 
+*/
 
 void ChessBoard::messageError(){
 	cout << "Error" << endl;
@@ -170,3 +188,4 @@ void ChessBoard::removePiece (int position ){
 ChessBoard::~ChessBoard(){
 	cout << "end" << endl;
 }
+

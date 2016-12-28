@@ -1,3 +1,5 @@
+#ifndef CHESS_BOARD_H
+#define CHESS_BOARD_H
 #include<iostream>
 #include<map>
 #include<string>
@@ -90,101 +92,126 @@ class Piece {
 	public:
 		int			number;
 		int			color;
-		ChessBoard	*chboard;	
 
-		virtual bool move(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest){
+		};
 		void messageError();
 
+		int getnum() const{
+			return number;
+		}
+		int getcol() const{
+			return color;
+		}
+
+		Piece		(){
+			number=0;
+			color=0;
+		}
 		Piece		(const Piece &obj);
+		~Piece		();
 };
 
 class King : public Piece {
 	private:
 	public:
-		King() {}
-		King(int c, ChessBoard* board) {
+		King() {
+			color=0;
+			number=0;
+		}
+		King(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			chboard=board;
 			number=1;	
 		}
-		virtual bool move(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest);
 		~King() {}
 };
 class Queen : public Piece {
 	private:
 	public:
-		Queen() {}
-		Queen(int c, ChessBoard* board) {
+		Queen() {
+			color=0;
+			number=0;
+		}
+		Queen(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			chboard=board;
 			number=1;	
 		}
-		virtual bool move(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest);
 		~Queen() {}
 };
 class Bishop : public Piece {
 	private:
 	public:
-		Bishop() {}
-		Bishop(int c, ChessBoard* board) {
+		Bishop() {
+			color=0;
+			number=0;
+		}
+		Bishop(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			chboard=board;
 			number=2;
 		}
-		virtual bool move(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest);
 		~Bishop() {}
 };
 class Knight : public Piece {
 	private:
 	public:
-		Knight() {}
-		Knight(int c, ChessBoard* board) {
+		Knight() {
+			color=0;
+			number=0;
+		}
+		Knight(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			chboard=board;
 			number=2;
 		}
-		virtual bool move(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest);
 		~Knight() {}
 };
 class Rook : public Piece {
 	private:
 	public:
-		Rook() {}
-		Rook(int c, ChessBoard* board) {
+		Rook() {
+			color=0;
+			number=0;
+		}
+		Rook(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			chboard=board;
 			number=2;
 		}
-		virtual bool move(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest);
 		~Rook() {}
 };
 class Pawn : public Piece {
 	private:
 	public:
-		Pawn() {}
-		Pawn(int c, ChessBoard* board) {
+		Pawn() {
+			color=0;
+			number=0;
+		}
+		Pawn(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			chboard=board;
 			number=8;
 		}
-		virtual bool move(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest);
 		~Pawn() {}
 };
+#endif
