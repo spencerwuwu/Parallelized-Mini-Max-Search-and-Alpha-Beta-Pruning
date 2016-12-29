@@ -1,7 +1,11 @@
 #include <iostream>
-#include <stdlib.h>
-#include <string>
-#include<map>
-#include<vector> 
 
 using namespace std;
+
+#include "ChessBoard.hpp"
+
+int ChessBoard::eval(){
+	int eval=0;
+
+	return 0;
+}

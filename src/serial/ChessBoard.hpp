@@ -5,6 +5,7 @@
 #include<string>
 #include<vector> 
 
+
 using namespace std;
 
 typedef unsigned long long  U64;
@@ -61,6 +62,10 @@ class ChessBoard {
 	public:
 		int boardMap[64]; 
 		map<int,Piece*> pieceMap;
+		int pieceNum[15];
+		int turn;
+
+
 		void initiate	();
 
 
@@ -68,19 +73,27 @@ class ChessBoard {
 		void 	print		();
 		void	resetBoard	();
 		void	messageError();
+		void	showTurn	();
+		int		getTurn		();
+
 
 		vector<ChessBoard*> listAllMove();
+
+		int getNum(int chess) const{
+			return pieceNum[chess];
+		}
 
 		ChessBoard			(const ChessBoard &obj );
 
 
 	friend class Piece;
 
-	//value obtain
+	// value obtain
 	bool 	checkPiecePosition(string piece, int position);
 
 	// Piece function
-	void 	movePiece	(string piece, int origin, int dest);
+	bool 	movePiece	(char piece, int origin, int dest);
+	int 	eval		();
 	void	removePiece	(int position);
 	~ChessBoard			();
 };
@@ -90,22 +103,17 @@ class Piece {
 
 	protected:
 	public:
-		int			number;
 		int			color;
 
 		virtual bool checkmove(int orgin, int dest){
 		};
 		void messageError();
 
-		int getnum() const{
-			return number;
-		}
 		int getcol() const{
 			return color;
 		}
 
 		Piece		(){
-			number=0;
 			color=0;
 		}
 		Piece		(const Piece &obj);
@@ -117,14 +125,12 @@ class King : public Piece {
 	public:
 		King() {
 			color=0;
-			number=0;
 		}
 		King(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			number=1;	
 		}
 		virtual bool checkmove(int orgin, int dest);
 		~King() {}
@@ -134,14 +140,12 @@ class Queen : public Piece {
 	public:
 		Queen() {
 			color=0;
-			number=0;
 		}
 		Queen(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			number=1;	
 		}
 		virtual bool checkmove(int orgin, int dest);
 		~Queen() {}
@@ -151,14 +155,12 @@ class Bishop : public Piece {
 	public:
 		Bishop() {
 			color=0;
-			number=0;
 		}
 		Bishop(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			number=2;
 		}
 		virtual bool checkmove(int orgin, int dest);
 		~Bishop() {}
@@ -168,14 +170,12 @@ class Knight : public Piece {
 	public:
 		Knight() {
 			color=0;
-			number=0;
 		}
 		Knight(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			number=2;
 		}
 		virtual bool checkmove(int orgin, int dest);
 		~Knight() {}
@@ -185,14 +185,12 @@ class Rook : public Piece {
 	public:
 		Rook() {
 			color=0;
-			number=0;
 		}
 		Rook(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			number=2;
 		}
 		virtual bool checkmove(int orgin, int dest);
 		~Rook() {}
@@ -202,14 +200,12 @@ class Pawn : public Piece {
 	public:
 		Pawn() {
 			color=0;
-			number=0;
 		}
 		Pawn(int c) {
 			if ( c >= epc_boff){
 				color = BLACK;
 			}
 			else color = WHITE;
-			number=8;
 		}
 		virtual bool checkmove(int orgin, int dest);
 		~Pawn() {}

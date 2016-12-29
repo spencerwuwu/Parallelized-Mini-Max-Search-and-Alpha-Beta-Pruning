@@ -9,7 +9,6 @@ using namespace std;
 #include "ChessBoard.hpp"
 
 Piece::Piece(const Piece &obj){
-	number	= obj.getnum();
 	color	= obj.getcol();
 }
 
@@ -44,8 +43,8 @@ bool Bishop::checkmove(int origin, int dest){
 
 bool Rook::checkmove(int origin, int dest){
 	// check aviability of movement
-	if( (dest - origin) % 9 == 0 	 	 // right-up
-			||	(dest - origin) % 7 == 0 //	left-up
+	if( (dest - origin) % 8 == 0 	 	 // same file
+			||	( dest/8 == origin/8 )   // same rank
 	  ){
 		//apply move
 		return true;
