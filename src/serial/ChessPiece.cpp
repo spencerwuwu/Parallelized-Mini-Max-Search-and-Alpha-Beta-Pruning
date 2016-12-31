@@ -243,19 +243,26 @@ bool Knight::checkmove(int origin, int dest, int* myboard){
 	else return false;
 }
 bool Pawn::checkmove(int origin, int dest, int* myboard){
+	bool finish = false;
 	// check aviability of movement
 	// if haven't moved
 	if( this->color==WHITE ){  // white
 		if ( origin/8==6 ){					 // haven't been moved
 			if ( ( dest==origin-8 ) || ( dest==origin-16 ) ){
 				//apply move
-				return true;
+				finish = true;
 			}
 		}
 		else {	//have been moved
 			if (  dest==origin-8 ){
 				//apply move
-				return true;
+				finish = true;
+			}
+		}
+
+		if ( dest == origin - 7 || dest == origin - 9 ){
+			if ( myboard[dest] != epc_empty && myboard[dest] > epc_blacky){
+				finish = true;
 			}
 		}
 	}
@@ -263,15 +270,21 @@ bool Pawn::checkmove(int origin, int dest, int* myboard){
 		if ( origin/8==1 ){					 // haven't been moved
 			if ( ( dest==origin+8 ) || ( dest==origin+16 ) ){
 				//apply move
-				return true;
+				finish = true;
 			}
 		}
 		else {	//have been moved
 			if (  dest==origin+8 ){
 				//apply move
-				return true;
+				finish = true;
 			}
-			else return false;
+		}
+
+		if ( dest == origin + 7 || dest == origin + 9 ){
+			if ( myboard[dest] != epc_empty && myboard[dest] < epc_blacky){
+				finish = true;
+			}
 		}
 	}
+	return finish;
 }

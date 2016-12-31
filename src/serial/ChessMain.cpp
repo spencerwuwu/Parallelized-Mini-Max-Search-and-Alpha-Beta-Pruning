@@ -46,7 +46,6 @@ int main(){
 			//
 			// input parser
 			cin >> in0 >> in1 >> in2;
-			cout << in0 << in1 << in2;
 			piece	= in0[0];
 			origin	= parse( in1[0], in1[1]);
 			dest	= parse( in2[0], in2[1]);
