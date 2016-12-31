@@ -12,25 +12,27 @@ Piece::Piece(const Piece &obj){
 	color	= obj.getcol();
 }
 
-bool King::checkmove( int origin, int dest){
+bool King::checkmove( int origin, int dest, int* chboard){
 	return false;
 }
 
 
-bool Queen::checkmove(int origin, int dest){
+bool Queen::checkmove(int origin, int dest, int* chboard){
 	// check aviability of movement
+	bool finish = false;
 	if( (dest - origin) % 9 == 0 	 	 // right-up
 			||	(dest - origin) % 7 == 0 //	left-up
 			||	dest%8 == origin%8		 // file
 			||  dest/8 == origin/8	)	 // rank
 	{
 		// dest clean
-		return true;
+		finish = true;
 	}
-	else return false;
+
+	return finish;
 }
 
-bool Bishop::checkmove(int origin, int dest){
+bool Bishop::checkmove(int origin, int dest, int* myboard){
 	// check aviability of movement
 	if( (dest - origin) % 9 == 0 	 	 // right-up
 			||	(dest - origin) % 7 == 0 //	left-up
@@ -41,7 +43,7 @@ bool Bishop::checkmove(int origin, int dest){
 	else return false;
 }
 
-bool Rook::checkmove(int origin, int dest){
+bool Rook::checkmove(int origin, int dest, int* myboard){
 	// check aviability of movement
 	if( (dest - origin) % 8 == 0 	 	 // same file
 			||	( dest/8 == origin/8 )   // same rank
@@ -51,7 +53,7 @@ bool Rook::checkmove(int origin, int dest){
 	}
 	else return false;
 }
-bool Knight::checkmove(int origin, int dest){
+bool Knight::checkmove(int origin, int dest, int* myboard){
 	// check aviability of movement
 	if( (dest - origin) % 17 == 0 	 	  // right-up
 			||	(dest - origin) % 15 == 0 // left-up
@@ -61,7 +63,7 @@ bool Knight::checkmove(int origin, int dest){
 	}
 	else return false;
 }
-bool Pawn::checkmove(int origin, int dest){
+bool Pawn::checkmove(int origin, int dest, int* myboard){
 	// check aviability of movement
 	// if haven't moved
 	if( this->color==WHITE ){  // white
