@@ -131,7 +131,7 @@ void ChessBoard::print(){
 									break;
 				case epc_wqueen:	cout << "Q|";
 									break;
-				case epc_wking:		cout << "K|";
+				case epc_wking:		cout << "C|";
 									break;
 				case epc_bpawn:		cout << "p|";
 									break;
@@ -143,7 +143,7 @@ void ChessBoard::print(){
 									break;
 				case epc_bqueen:	cout << "q|";
 									break;
-				case epc_bking:		cout << "k|";
+				case epc_bking:		cout << "c|";
 									break;
 				default:			cout << " |";
 									break;
