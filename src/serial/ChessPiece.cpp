@@ -12,7 +12,7 @@ Piece::Piece(const Piece &obj){
 	color	= obj.getcol();
 }
 
-bool King::checkmove( int origin, int dest, int* chboard){
+bool King::checkmove( int origin, int dest, int* myboard){
 	bool finish = false;
 	if ( dest > origin ){
 			if( dest ==  origin+9 )			finish=true;
@@ -31,7 +31,7 @@ bool King::checkmove( int origin, int dest, int* chboard){
 }
 
 
-bool Queen::checkmove(int origin, int dest, int* chboard){
+bool Queen::checkmove(int origin, int dest, int* myboard){
 	// check aviability of movement
 	bool finish = false;
 	bool check = false;
@@ -40,7 +40,7 @@ bool Queen::checkmove(int origin, int dest, int* chboard){
 		if ( dest > origin ){
 			count = (dest - origin) / 9;
 			for( int i = 1 ; i < count ; i++ ){
-				if ( chboard[ origin+i * 9 ] != epc_empty ){
+				if ( myboard[ origin+i * 9 ] != epc_empty ){
 					check = true;
 					break;
 				}
@@ -50,7 +50,7 @@ bool Queen::checkmove(int origin, int dest, int* chboard){
 		else {
 			count = ( origin - dest ) / 9;
 			for( int i = 1 ; i < count ; i++ ){
-				if ( chboard[ origin - i * 9 ] != epc_empty ){
+				if ( myboard[ origin - i * 9 ] != epc_empty ){
 					check = true;
 					break;
 				}
@@ -63,7 +63,7 @@ bool Queen::checkmove(int origin, int dest, int* chboard){
 		if ( dest > origin ){
 			count = (dest - origin) / 7;
 			for( int i = 1 ; i < count ; i++ ){
-				if ( chboard[ origin+i * 7 ] != epc_empty ){
+				if ( myboard[ origin+i * 7 ] != epc_empty ){
 					check = true;
 					break;
 				}
@@ -73,7 +73,7 @@ bool Queen::checkmove(int origin, int dest, int* chboard){
 		else {
 			count = ( origin - dest ) / 7;
 			for( int i = 1 ; i < count ; i++ ){
-				if ( chboard[ origin - i * 7 ] != epc_empty ){
+				if ( myboard[ origin - i * 7 ] != epc_empty ){
 					check = true;
 					break;
 				}
@@ -86,7 +86,7 @@ bool Queen::checkmove(int origin, int dest, int* chboard){
 		if ( dest > origin ){
 			count = (dest - origin) / 8;
 			for( int i = 1 ; i < count ; i++ ){
-				if ( chboard[ origin+i * 8 ] != epc_empty ){
+				if ( myboard[ origin+i * 8 ] != epc_empty ){
 					check = true;
 					break;
 				}
@@ -96,7 +96,7 @@ bool Queen::checkmove(int origin, int dest, int* chboard){
 		else {
 			count = ( origin - dest ) / 8;
 			for( int i = 1 ; i < count ; i++ ){
-				if ( chboard[ origin - i * 8 ] != epc_empty ){
+				if ( myboard[ origin - i * 8 ] != epc_empty ){
 					check = true;
 					break;
 				}
@@ -108,7 +108,7 @@ bool Queen::checkmove(int origin, int dest, int* chboard){
 	else if ( dest/8 == origin/8 ){			 // rank
 		if ( dest > origin ){
 			for( int i = 1 ; i < dest - origin ; i++){
-				if ( chboard[ origin + i ] != epc_empty ){
+				if ( myboard[ origin + i ] != epc_empty ){
 					check = true;
 					break;
 				}
@@ -117,7 +117,7 @@ bool Queen::checkmove(int origin, int dest, int* chboard){
 		}
 		else { 
 			for( int i = 1 ; i < origin - dest ; i++){
-				if ( chboard[ origin - i ] != epc_empty ){
+				if ( myboard[ origin - i ] != epc_empty ){
 					check = true;
 					break;
 				}
@@ -130,25 +130,107 @@ bool Queen::checkmove(int origin, int dest, int* chboard){
 }
 
 bool Bishop::checkmove(int origin, int dest, int* myboard){
-	// check aviability of movement
-	if( (dest - origin) % 9 == 0 	 	 // right-up
-			||	(dest - origin) % 7 == 0 //	left-up
-	  ){
-		//apply move
-		return true;
+	bool finish = false;
+	bool check = false;
+	int count=0;
+	if ( (dest - origin) % 9 == 0 ){	 	 // right-up
+		if ( dest > origin ){
+			count = (dest - origin) / 9;
+			for( int i = 1 ; i < count ; i++ ){
+				if ( myboard[ origin+i * 9 ] != epc_empty ){
+					check = true;
+					break;
+				}
+			}
+			if ( !check ) finish = true;
+		}
+		else {
+			count = ( origin - dest ) / 9;
+			for( int i = 1 ; i < count ; i++ ){
+				if ( myboard[ origin - i * 9 ] != epc_empty ){
+					check = true;
+					break;
+				}
+			}
+			if ( !check ) finish = true;
+		}
+
 	}
-	else return false;
+	else if ( (dest - origin) % 7 == 0 ){	 //	left-up
+		if ( dest > origin ){
+			count = (dest - origin) / 7;
+			for( int i = 1 ; i < count ; i++ ){
+				if ( myboard[ origin+i * 7 ] != epc_empty ){
+					check = true;
+					break;
+				}
+			}
+			if ( !check ) finish = true;
+		}
+		else {
+			count = ( origin - dest ) / 7;
+			for( int i = 1 ; i < count ; i++ ){
+				if ( myboard[ origin - i * 7 ] != epc_empty ){
+					check = true;
+					break;
+				}
+			}
+			if ( !check ) finish = true;
+		}
+
+	}
+	return finish;
 }
 
 bool Rook::checkmove(int origin, int dest, int* myboard){
-	// check aviability of movement
-	if( (dest - origin) % 8 == 0 	 	 // same file
-			||	( dest/8 == origin/8 )   // same rank
-	  ){
-		//apply move
-		return true;
+	bool finish = false;
+	bool check = false;
+	int count=0;
+	if ( dest%8 == origin%8 ){			// file
+		if ( dest > origin ){
+			count = (dest - origin) / 8;
+			for( int i = 1 ; i < count ; i++ ){
+				if ( myboard[ origin+i * 8 ] != epc_empty ){
+					check = true;
+					break;
+				}
+			}
+			if ( !check ) finish = true;
+		}
+		else {
+			count = ( origin - dest ) / 8;
+			for( int i = 1 ; i < count ; i++ ){
+				if ( myboard[ origin - i * 8 ] != epc_empty ){
+					check = true;
+					break;
+				}
+			}
+			if ( !check ) finish = true;
+		}
+
 	}
-	else return false;
+	else if ( dest/8 == origin/8 ){			 // rank
+		if ( dest > origin ){
+			for( int i = 1 ; i < dest - origin ; i++){
+				if ( myboard[ origin + i ] != epc_empty ){
+					check = true;
+					break;
+				}
+			}
+			if ( !check ) finish = true;
+		}
+		else { 
+			for( int i = 1 ; i < origin - dest ; i++){
+				if ( myboard[ origin - i ] != epc_empty ){
+					check = true;
+					break;
+				}
+			}
+			if ( !check ) finish = true;
+		}
+	}
+			
+	return finish;
 }
 bool Knight::checkmove(int origin, int dest, int* myboard){
 	// check aviability of movement
