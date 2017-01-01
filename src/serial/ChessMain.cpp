@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "ChessBoard.hpp"
+#include "Search.hpp"
 
 using namespace std;
 
@@ -64,7 +65,8 @@ int main(){
 
 		myboard->print();
 
-
+		tmp = MinMax( myboard, 4);
+		myboard = tmp;
 	}
 
 	return 0;

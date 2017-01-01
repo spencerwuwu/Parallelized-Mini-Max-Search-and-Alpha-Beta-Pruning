@@ -57,6 +57,7 @@ enum EPieceCode
 
 class ChessBoard; 
 class Piece;
+class PieceTable;
 
 class ChessBoard {
 
@@ -94,9 +95,16 @@ class ChessBoard {
 
 	// Piece function
 	bool 	movePiece	(char piece, int origin, int dest);
-	int 	eval		();
+	int 	eval		(int score);
 	void	removePiece	(int position);
 	~ChessBoard			();
+};
+
+class PieceTable{
+	public:
+		int score[8][64];
+		PieceTable();
+		~PieceTable();
 };
 
 class Piece {
