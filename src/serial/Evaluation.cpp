@@ -4,12 +4,10 @@ using namespace std;
 
 #include "ChessBoard.hpp"
 
-/*
+
 PieceTable::PieceTable(){
 
-
-	score[ept_empty]={0}
-	score[ept_wpawn]	=	{
+	int score_pawn[64]  =   {
 		0,   0,   0,   0,   0,   0,   0,   0,
 		50,  50,  50,  50,  50,  50,  50,  50,
 		10,  10,  20,  30,  30,  20,  10,  10,
@@ -18,8 +16,8 @@ PieceTable::PieceTable(){
 		5,  -5, -10,   0,   0, -10,  -5,   5,
 		5,  10,  10, -20, -20,  10,  10,   5,
 		0,   0,   0,   0,   0,   0,   0,   0  
-	}
-	score[ept_bpawn]	=	{
+	};
+	int score_off[64]	=	{
 		0,   0,   0,   0,   0,   0,   0,   0,
 		50,  50,  50,  50,  50,  50,  50,  50,
 		10,  10,  20,  30,  30,  20,  10,  10,
@@ -28,9 +26,8 @@ PieceTable::PieceTable(){
 		5,  -5, -10,   0,   0, -10,  -5,   5,
 		5,  10,  10, -20, -20,  10,  10,   5,
 		0,   0,   0,   0,   0,   0,   0,   0  
-	}
-	//PieceTable[epc_bpaen]={0}
-	score[ept_knight]	=	{
+	};
+	int score_knight[64]	=	{
 		-50, -40, -30, -30, -30, -30, -40, -50,
 		-40, -20,   0,   0,   0,   0, -20, -40,
 		-30,   0,  10,  15,  15,  10,   0, -30,
@@ -39,8 +36,8 @@ PieceTable::PieceTable(){
 		-30,   5,  10,  15,  15,  10,   5, -30,
 		-40, -20,   0,   5,   5,   0, -20, -40,
 		-50, -40, -30, -30, -30, -30, -40, -50
-	}
-	score[ept_bishop]	=	{
+	};
+	int score_bishop[64]	=	{
 		-20, -10, -10, -10, -10, -10, -10, -20,
 		-10,   0,   0,   0,   0,   0,   0, -10,
 		-10,   0,   5,  10,  10,   5,   0, -10,
@@ -49,8 +46,8 @@ PieceTable::PieceTable(){
 		-10,  10,  10,  10,  10,  10,  10, -10,
 		-10,   5,   0,   0,   0,   0,   5, -10,
 		-20, -10, -10, -10, -10, -10, -10, -20
-	}
-	score[ept_rook]	=	{
+	};
+	int score_rook[64]	=	{
 		0,   0,   0,   0,   0,   0,   0,   0,
 		5,  10,  10,  10,  10,  10,  10,   5,
 		-5,   0,   0,   0,   0,   0,   0,  -5,
@@ -59,8 +56,8 @@ PieceTable::PieceTable(){
 		-5,   0,   0,   0,   0,   0,   0,  -5,
 		-5,   0,   0,   0,   0,   0,   0,  -5,
 		0,   0,   0,   5,   5,   0,   0,   0
-	}
-	score[ept_queen]	=	{
+	};
+	int score_queen[64]	=	{
 		-20, -10, -10,  -5,  -5, -10, -10, -20,
 		-10,   0,   0,   0,   0,   0,   0, -10,
 		-10,   0,   5,   5,   5,   5,   0, -10,
@@ -69,9 +66,9 @@ PieceTable::PieceTable(){
 		-10,   5,   5,   5,   5,   5,   0, -10,
 		-10,   0,   5,   0,   0,   0,   0, -10,
 		-20, -10, -10,  -5,  -5, -10, -10, -20	
-	}
+	};
 	//king middle game
-	score[ept_king]	=	{
+	int score_king[64]	=	{
 		-30, -40, -40, -50, -50, -40, -40, -30,
 		-30, -40, -40, -50, -50, -40, -40, -30,
 		-30, -40, -40, -50, -50, -40, -40, -30,
@@ -80,34 +77,47 @@ PieceTable::PieceTable(){
 		-10, -20, -20, -20, -20, -20, -20, -10,
 		20,  20,   0,   0,   0,   0,  20,  20,
 		20,  30,  10,   0,   0,  10,  30,  20
-	}
+	};
+
+    memset((void *)score[epc_empty], 0, sizeof(int)*64);
+    memset((void *)score[epc_blacky], 0, sizeof(int)*64);
+    for(int i=0; i<64; i++){
+        // value of white
+        score[epc_wpawn][i]   = score_pawn[i];
+        score[epc_woff][i]    = score_off[i];
+        score[epc_wknight][i] = score_knight[i];
+        score[epc_wbishop][i] = score_bishop[i];
+        score[epc_wrook][i]   = score_rook[i];
+        score[epc_wqueen][i]  = score_queen[i];
+        score[epc_wking][i]   = score_king[i];
+
+        // value of black
+        score[epc_bpawn][i]   = -score_pawn[i];
+        score[epc_boff][i]    = -score_off[i];
+        score[epc_bknight][i] = -score_knight[i];
+        score[epc_bbishop][i] = -score_bishop[i];
+        score[epc_brook][i]   = -score_rook[i];
+        score[epc_bqueen][i]  = -score_queen[i];
+        score[epc_bking][i]   = -score_king[i];
+    }
 }
-*/
+
+PieceTable::~PieceTable(){
+    // free memory ?
+}
+
+// temporarily declared here, maybe change to the other place but not in ChessBoard::eval, 
+// for the reason that we only need to create the table once in the bigin.
+PieceTable myscore;
+
 int ChessBoard::eval(int color){
-	int eval=0;
-/*	PieceTable myscore;
+	// color: white 0 negative, black 1 positive
+    int eval=0;
 	for(int i = 0 ; i < 64 ; i++){
 		eval += myscore.score[boardMap[i]][i];
 	}
 	if ( color == 0 ){
 		eval = -eval;
-	}
-	*/
-	if ( color == 0 ) {
-	eval -= (10 * pieceNum[epc_wpawn]);
-	eval -= (50 * pieceNum[epc_wknight]);
-	eval -= (30 * pieceNum[epc_wrook]);
-	eval -= (32 * pieceNum[epc_wbishop]);
-	eval -= (90 * pieceNum[epc_wqueen]);
-	eval -= (100 * pieceNum[epc_wking]);
-	}
-	else {
-	eval += (10 * pieceNum[epc_bpawn]);
-	eval += (50 * pieceNum[epc_bknight]);
-	eval += (30 * pieceNum[epc_brook]);
-	eval += (32 * pieceNum[epc_bbishop]);
-	eval += (90 * pieceNum[epc_bqueen]);
-	eval += (100 * pieceNum[epc_bking]);
 	}
 	return eval;
 }
