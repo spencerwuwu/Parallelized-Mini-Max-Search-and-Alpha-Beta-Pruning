@@ -131,7 +131,7 @@ void ChessBoard::print(){
 									break;
 				case epc_wqueen:	cout << "Q|";
 									break;
-				case epc_wking:		cout << "K|";
+				case epc_wking:		cout << "C|";
 									break;
 				case epc_bpawn:		cout << "p|";
 									break;
@@ -143,7 +143,7 @@ void ChessBoard::print(){
 									break;
 				case epc_bqueen:	cout << "q|";
 									break;
-				case epc_bking:		cout << "k|";
+				case epc_bking:		cout << "c|";
 									break;
 				default:			cout << " |";
 									break;
@@ -167,7 +167,7 @@ bool ChessBoard::movePiece(char piece, int origin, int dest){
 		else if ( pieceMap[boardMap[dest]]->color != pieceMap[boardMap[origin]]->color ) check=1;
 
 		if( check == 1){
-			if( pieceMap[origin]->checkmove(origin, dest) ){
+			if( pieceMap[boardMap[origin]]->checkmove(origin, dest, boardMap) ){
 				if( boardMap[dest] != 0){
 					removePiece(dest);
 				}
@@ -200,7 +200,7 @@ vector<ChessBoard*> ChessBoard::listAllMove(){
 			for( int j = 0; j < 64; j++){
 				ChessBoard* temp = new ChessBoard;
 				*temp = *this;
-				if( temp->pieceMap[boardMap[i]]->checkmove(i,j) ){
+				if( temp->pieceMap[boardMap[i]]->checkmove(i,j,boardMap) ){
 					temp->movePiece('c',i,j);
 					moves.push_back(temp);
 				}

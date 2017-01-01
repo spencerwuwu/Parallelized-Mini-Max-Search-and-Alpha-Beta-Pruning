@@ -55,6 +55,7 @@ enum EPieceCode
 	epc_bking   = ept_king   + epc_blacky,
 };
 
+class ChessBoard; 
 class Piece;
 
 class ChessBoard {
@@ -105,7 +106,7 @@ class Piece {
 	public:
 		int			color;
 
-		virtual bool checkmove(int orgin, int dest){
+		virtual bool checkmove(int orgin, int dest, int* myboard){
 		};
 		void messageError();
 
@@ -132,7 +133,7 @@ class King : public Piece {
 			}
 			else color = WHITE;
 		}
-		virtual bool checkmove(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest, int* myboard);
 		~King() {}
 };
 class Queen : public Piece {
@@ -147,7 +148,7 @@ class Queen : public Piece {
 			}
 			else color = WHITE;
 		}
-		virtual bool checkmove(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest, int* myboard);
 		~Queen() {}
 };
 class Bishop : public Piece {
@@ -162,7 +163,7 @@ class Bishop : public Piece {
 			}
 			else color = WHITE;
 		}
-		virtual bool checkmove(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest, int* myboard);
 		~Bishop() {}
 };
 class Knight : public Piece {
@@ -177,7 +178,7 @@ class Knight : public Piece {
 			}
 			else color = WHITE;
 		}
-		virtual bool checkmove(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest, int* myboard);
 		~Knight() {}
 };
 class Rook : public Piece {
@@ -192,7 +193,7 @@ class Rook : public Piece {
 			}
 			else color = WHITE;
 		}
-		virtual bool checkmove(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest, int* myboard);
 		~Rook() {}
 };
 class Pawn : public Piece {
@@ -207,7 +208,7 @@ class Pawn : public Piece {
 			}
 			else color = WHITE;
 		}
-		virtual bool checkmove(int orgin, int dest);
+		virtual bool checkmove(int orgin, int dest, int* myboard);
 		~Pawn() {}
 };
 #endif
