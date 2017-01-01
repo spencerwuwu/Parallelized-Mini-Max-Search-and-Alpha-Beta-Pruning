@@ -174,8 +174,8 @@ bool ChessBoard::movePiece(char piece, int origin, int dest){
 				boardMap[dest]=boardMap[origin];
 				boardMap[origin]=0;
 				
-				if( turn == 0 ) turn=1;
-				else turn=0;
+		//		if( turn == 0 ) turn=1;
+		//		else turn=0;
 				finish=true;
 			}
 			else messageError();

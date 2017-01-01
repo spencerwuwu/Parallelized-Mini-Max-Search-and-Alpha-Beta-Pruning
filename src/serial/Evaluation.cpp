@@ -4,7 +4,7 @@ using namespace std;
 
 #include "ChessBoard.hpp"
 
-
+/*
 PieceTable::PieceTable(){
 
 
@@ -82,15 +82,32 @@ PieceTable::PieceTable(){
 		20,  30,  10,   0,   0,  10,  30,  20
 	}
 }
-
+*/
 int ChessBoard::eval(int color){
 	int eval=0;
-	PieceTable myscore;
+/*	PieceTable myscore;
 	for(int i = 0 ; i < 64 ; i++){
 		eval += myscore.score[boardMap[i]][i];
 	}
 	if ( color == 0 ){
 		eval = -eval;
+	}
+	*/
+	if ( color == 0 ) {
+	eval -= (10 * pieceNum[epc_wpawn]);
+	eval -= (50 * pieceNum[epc_wknight]);
+	eval -= (30 * pieceNum[epc_wrook]);
+	eval -= (32 * pieceNum[epc_wbishop]);
+	eval -= (90 * pieceNum[epc_wqueen]);
+	eval -= (100 * pieceNum[epc_wking]);
+	}
+	else {
+	eval += (10 * pieceNum[epc_bpawn]);
+	eval += (50 * pieceNum[epc_bknight]);
+	eval += (30 * pieceNum[epc_brook]);
+	eval += (32 * pieceNum[epc_bbishop]);
+	eval += (90 * pieceNum[epc_bqueen]);
+	eval += (100 * pieceNum[epc_bking]);
 	}
 	return eval;
 }
