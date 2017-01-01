@@ -104,3 +104,4 @@ int ChessBoard::eval(int color){
 	}
 	return eval;
 }
+
