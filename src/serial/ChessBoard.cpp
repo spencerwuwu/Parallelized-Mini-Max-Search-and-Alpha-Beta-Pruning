@@ -162,27 +162,26 @@ bool checkPiecePosition(char piece, int position){
 bool ChessBoard::movePiece(char piece, int origin, int dest){
 	int check=0;
 	bool finish=false;
-	if( pieceMap[boardMap[origin]]->color == getTurn() ){
-		if( boardMap[dest] == epc_empty ) check=1;
-		else if ( pieceMap[boardMap[dest]]->color != pieceMap[boardMap[origin]]->color ) check=1;
+	if ( boardMap[origin] != epc_empty ){
+		if( pieceMap[boardMap[origin]]->color == getTurn() ){
+			if( boardMap[dest] == epc_empty ) check=1;
+			else if ( pieceMap[boardMap[dest]]->color != pieceMap[boardMap[origin]]->color ) check=1;
 
-		if( check == 1){
-			if( pieceMap[boardMap[origin]]->checkmove(origin, dest, boardMap) ){
-				if( boardMap[dest] != 0){
-					removePiece(dest);
+			if( check == 1){
+				if( pieceMap[boardMap[origin]]->checkmove(origin, dest, boardMap) ){
+					if( boardMap[dest] != 0){
+						removePiece(dest);
+					}
+					boardMap[dest]=boardMap[origin];
+					boardMap[origin]=0;
+
+					//		if( turn == 0 ) turn=1;
+					//		else turn=0;
+					finish=true;
 				}
-				boardMap[dest]=boardMap[origin];
-				boardMap[origin]=0;
-				
-		//		if( turn == 0 ) turn=1;
-		//		else turn=0;
-				finish=true;
 			}
-			else messageError();
 		}
-		else messageError();
 	}
-	else messageError();
 
 	return finish;
 }
