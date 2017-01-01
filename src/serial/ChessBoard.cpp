@@ -196,13 +196,15 @@ vector<ChessBoard*> ChessBoard::listAllMove(){
 	int turn = getTurn();
 
 	for(int i = 0; i < 64; i++){
-		if ( pieceMap[boardMap[i]]->color == turn ){
-			for( int j = 0; j < 64; j++){
-				ChessBoard* temp = new ChessBoard;
-				*temp = *this;
-				if( temp->pieceMap[boardMap[i]]->checkmove(i,j,boardMap) ){
-					temp->movePiece('c',i,j);
-					moves.push_back(temp);
+		if ( boardMap[i] != epc_empty){
+			if ( pieceMap[boardMap[i]]->color == turn ){
+				for( int j = 0; j < 64; j++){
+					ChessBoard* temp = new ChessBoard;
+					*temp = *this;
+					if( temp->pieceMap[boardMap[i]]->checkmove(i,j,boardMap) ){
+						temp->movePiece('c',i,j);
+						moves.push_back(temp);
+					}
 				}
 			}
 		}
