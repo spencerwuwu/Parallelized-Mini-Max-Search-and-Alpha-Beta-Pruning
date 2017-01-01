@@ -96,9 +96,9 @@ int ChessBoard::eval(int color){
 	}else if(color == BLACK){
 		for(int i = 0 ; i < 64 ; i++){
 			if(boardMap[i] < 8){
-				eval -= PieceTable[boardMap[i]][i];
+				eval -= PieceTable[boardMap[i]][63 - i];
 			}else {
-				eval += PieceTable[boardMap[i] - 8][i];
+				eval += PieceTable[boardMap[i] - 8][63 - i];
 			}
 		}
 	}
