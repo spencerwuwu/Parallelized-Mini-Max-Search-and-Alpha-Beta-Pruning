@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "ChessBoard.hpp"
+#include "Search.hpp"
 
 using namespace std;
 
@@ -8,9 +9,10 @@ int parse(char a, char b);
 
 int main(){
 	cout << "Start" << endl;
-	ChessBoard myboard;
+	ChessBoard* myboard = new ChessBoard();
+	ChessBoard* tmp = new ChessBoard();
 
-	myboard.print();
+	myboard->print();
 
 	cout  << endl << "input: piece origin destination"<< endl;
 
@@ -18,13 +20,11 @@ int main(){
 	char piece;
 	int origin;
 	int dest;
-	int tmp = 0;
-	int tmpin[2];
 
-	myboard.turn = 0;
+	myboard->turn = 0;
 
 	while(1){
-		myboard.showTurn();
+		myboard->showTurn();
 
 		// input parser
 		cin >> in0 >> in1 >> in2;
@@ -41,7 +41,7 @@ int main(){
 			dest	= parse( in2[0], in2[1]);
 		}
 
-		while ( !myboard.movePiece(piece, origin, dest) ){
+		while ( !myboard->movePiece(piece, origin, dest) ){
 			cout << "try again" << endl;
 			//
 			// input parser
@@ -63,7 +63,9 @@ int main(){
 
 		cout << "==============================" << endl;
 
-		myboard.print();
+		myboard->print();
+
+		*tmp = Minmax(myboard, 4);
 
 	}
 

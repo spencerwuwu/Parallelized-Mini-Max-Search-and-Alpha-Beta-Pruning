@@ -21,11 +21,11 @@ ChessBoard* Maxmove(ChessBoard* board, int dept_limit, int dept){
 	if (depth >= depth_limit) {//if depth limit is reached
 		return board;
 	} else {
-		moves = board->list_all_moves();
+		moves = board->listAllMove();
 		for (vector<ChessBoard*>::iterator it = moves.begin(); it != moves.end(); it++) {
 			move = MinMove(*it, depth_limit, depth+1);
-			if (best_move == NULL || move.evaluate_board(Black)
-					> best_move->evaluate_board(Black)) {
+			if (best_move == NULL || move->eval(BLACK)
+					> best_move->evaluate_board(BLACK)) {
 				best_move = move;
 				*best_real_move = it;
 			}
@@ -43,11 +43,11 @@ ChessBoard* MinMove(ChessBoard* board, int depth_limit, int depth) {
 	if (depth >= depth_limit) {//if depth limit is reached
 		return board;
 	} else {
-		moves = board->list_all_moves();
+		moves = board->listAllMove();
 		for (vector<ChessBoard*>::iterator it = moves.begin(); it != moves.end(); it++) {
 			move = MaxMove(*it, depth_limit, depth+1);
-			if (best_move == NULL || move.evaluate_board(White)
-					< best_move->evaluate_board(White)) {
+			if (best_move == NULL || move.evaluate_board(WHITE)
+					< best_move->evaluate_board(WHITE)) {
 				best_move = move;
 				*best_real_move = it;
 			}
