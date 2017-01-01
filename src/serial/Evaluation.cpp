@@ -4,6 +4,9 @@ using namespace std;
 
 #include "ChessBoard.hpp"
 
+#define WHITE 0
+#define BLACK 1
+
 int PieceTable[8][64];
 
 PieceTable[ept_empty]={0}
@@ -80,10 +83,24 @@ PieceTable[ept_king]	=	{
 							 20,  30,  10,   0,   0,  10,  30,  20
 							}
 
-int ChessBoard::eval(){
+int ChessBoard::eval(int color){
 	int eval=0;
-	for(int i = 0 ; i < 64 ; i++){
-		eval += PieceTable[boardMap[i]][i];
+	if(color == WHITE){
+		for(int i = 0 ; i < 64 ; i++){
+			if(boardMap[i] < 8){
+				eval += PieceTable[boardMap[i]][i];
+			}else {
+				eval -= PieceTable[boardMap[i] - 8][i];
+			}
+		}
+	}else if(color == BLACK){
+		for(int i = 0 ; i < 64 ; i++){
+			if(boardMap[i] < 8){
+				eval -= PieceTable[boardMap[i]][i];
+			}else {
+				eval += PieceTable[boardMap[i] - 8][i];
+			}
+		}
 	}
 	return eval;
 }
