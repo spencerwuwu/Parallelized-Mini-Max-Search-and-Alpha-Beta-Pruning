@@ -114,7 +114,8 @@ int main(){
 
 		myboard->print();
 
-		tmp = MinMax( myboard, 4);
+		tmp = MinMax( myboard, 2);
+        delete myboard;
 		myboard = tmp;
 	}
 

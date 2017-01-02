@@ -115,6 +115,7 @@ class Piece {
 		int			color;
 
 		virtual bool checkmove(int orgin, int dest, int* myboard){
+            return true;
 		};
 		void messageError();
 
