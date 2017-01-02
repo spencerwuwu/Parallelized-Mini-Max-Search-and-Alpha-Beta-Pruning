@@ -79,7 +79,7 @@ class ChessBoard {
 		int		getTurn		();
 
 
-		vector<ChessBoard*> listAllMove();
+		vector<ChessBoard*> listAllMove(int turn);
 
 		int getNum(int chess) const{
 			return pieceNum[chess];

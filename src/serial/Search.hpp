@@ -21,7 +21,7 @@ ChessBoard* MaxMove(ChessBoard* board, int dept_limit, int dept){
 	if (dept >= dept_limit) {//if depth limit is reached
 		return board;
 	} else {
-		moves = board->listAllMove();
+		moves = board->listAllMove(BLACK);
 		for (int i = 0; i < moves.size(); i++) {
 			move = MinMove( moves[i], dept_limit, dept+1);
 			if (best_move == NULL || move->eval(BLACK)
@@ -43,7 +43,7 @@ ChessBoard* MinMove(ChessBoard* board, int dept_limit, int dept) {
 	if (dept >= dept_limit) {//if depth limit is reached
 		return board;
 	} else {
-		moves = board->listAllMove();
+		moves = board->listAllMove(BLACK);
 		for (int i = 0; i < moves.size(); i++) {
 			move = MaxMove( moves[i], dept_limit, dept+1);
 			if (best_move == NULL || move->eval(WHITE)

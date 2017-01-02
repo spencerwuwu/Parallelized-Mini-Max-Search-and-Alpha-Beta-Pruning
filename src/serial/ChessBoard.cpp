@@ -175,8 +175,8 @@ bool ChessBoard::movePiece(char piece, int origin, int dest){
 					boardMap[dest]=boardMap[origin];
 					boardMap[origin]=0;
 
-					//		if( turn == 0 ) turn=1;
-					//		else turn=0;
+					if( turn == 0 ) turn=1;
+					else turn=0;
 					finish=true;
 				}
 			}
@@ -190,19 +190,20 @@ int ChessBoard::getTurn() {
 	return turn;
 }
 
-vector<ChessBoard*> ChessBoard::listAllMove(){
+vector<ChessBoard*> ChessBoard::listAllMove(int turn){
 	vector<ChessBoard*> moves;
-	int turn = getTurn();
+	ChessBoard* temp = new ChessBoard;
+	*temp = *this;
 
 	for(int i = 0; i < 64; i++){
 		if ( boardMap[i] != epc_empty){
 			if ( pieceMap[boardMap[i]]->color == turn ){
 				for( int j = 0; j < 64; j++){
-					ChessBoard* temp = new ChessBoard;
-					*temp = *this;
 					if( temp->pieceMap[boardMap[i]]->checkmove(i,j,boardMap) ){
 						temp->movePiece('c',i,j);
-						moves.push_back(temp);
+						ChessBoard* input = new ChessBoard;
+						*input = *temp;
+						moves.push_back(input);
 					}
 				}
 			}

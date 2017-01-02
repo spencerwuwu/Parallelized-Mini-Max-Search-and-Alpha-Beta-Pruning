@@ -5,7 +5,56 @@
 
 using namespace std;
 
-int parse(char a, char b);
+int parse(char a, char b){
+	int rank = 0;
+	int file = 0;
+	char in[2];
+	in[0] = a;
+	in[1] = b;
+	switch(in[0]){
+		case 'a':	file=0;
+					break;
+		case 'b':	file=1;
+					break;
+		case 'c':	file=2;
+					break;
+		case 'd':	file=3;
+					break;
+		case 'e':	file=4;
+					break;
+		case 'f':	file=5;
+					break;
+		case 'g':	file=6;
+					break;
+		case 'h':	file=7;
+					break;
+		default	:	file=-1;
+					break;
+	}
+
+	switch(in[1]){
+		case '1':	rank=0;
+					break;
+		case '2':	rank=1;
+					break;
+		case '3':	rank=2;
+					break;
+		case '4':	rank=3;
+					break;
+		case '5':	rank=4;
+					break;
+		case '6':	rank=5;
+					break;
+		case '7':	rank=6;
+					break;
+		case '8':	rank=7;
+					break;
+		default	:	rank=-1;
+					break;
+	}
+
+	return rank*8+file;
+}
 
 int main(){
 	cout << "Start" << endl;
@@ -73,54 +122,4 @@ int main(){
 
 }
 
-int parse(char a, char b){
-	int rank = 0;
-	int file = 0;
-	char in[2];
-	in[0] = a;
-	in[1] = b;
-	switch(in[0]){
-		case 'a':	file=0;
-					break;
-		case 'b':	file=1;
-					break;
-		case 'c':	file=2;
-					break;
-		case 'd':	file=3;
-					break;
-		case 'e':	file=4;
-					break;
-		case 'f':	file=5;
-					break;
-		case 'g':	file=6;
-					break;
-		case 'h':	file=7;
-					break;
-		default	:	file=-1;
-					break;
-	}
-
-	switch(in[1]){
-		case '1':	rank=0;
-					break;
-		case '2':	rank=1;
-					break;
-		case '3':	rank=2;
-					break;
-		case '4':	rank=3;
-					break;
-		case '5':	rank=4;
-					break;
-		case '6':	rank=5;
-					break;
-		case '7':	rank=6;
-					break;
-		case '8':	rank=7;
-					break;
-		default	:	rank=-1;
-					break;
-	}
-
-	return rank*8+file;
-}
 
