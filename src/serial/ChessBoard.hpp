@@ -94,7 +94,7 @@ class ChessBoard {
 	bool 	checkPiecePosition(string piece, int position);
 
 	// Piece function
-	bool 	movePiece	(char piece, int origin, int dest);
+	bool 	movePiece	(char piece, int origin, int dest, int myturn);
 	int 	eval		(int score);
 	void	removePiece	(int position);
 	~ChessBoard			();

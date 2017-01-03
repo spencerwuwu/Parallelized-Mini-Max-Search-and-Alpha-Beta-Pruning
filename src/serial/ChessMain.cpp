@@ -90,7 +90,7 @@ int main(){
 			dest	= parse( in2[0], in2[1]);
 		}
 
-		while ( !myboard->movePiece(piece, origin, dest) ){
+		while ( !myboard->movePiece(piece, origin, dest, 0) ){
 			cout << "try again" << endl;
 			//
 			// input parser
@@ -113,6 +113,7 @@ int main(){
 		cout << "==============================" << endl;
 
 		myboard->print();
+		myboard->turn = BLACK;
 
 		tmp = MinMax( myboard, 2);
         delete myboard;
