@@ -35,14 +35,7 @@ static inline enum FindAction another(enum FindAction action)
 
     return FIND_MIN;
 }
-static inline int curr_turn(enum FindAction action)
-{
-    if (action == FIND_MAX) {
-        return BLACK;
-    }
 
-    return WHITE;
-}
 static ChessBoard* _MinMaxMove(ChessBoard* board, int dept_limit, int dept, enum FindAction action) {
 	vector<ChessBoard*> moves;
 	ChessBoard* best_move = NULL;
@@ -52,7 +45,7 @@ static ChessBoard* _MinMaxMove(ChessBoard* board, int dept_limit, int dept, enum
 	if (dept >= dept_limit) {//if depth limit is reached
 		return board;
 	} else {
-		moves = board->listAllMove(curr_turn(action));
+		moves = board->listAllMove(action);
 		for (int i = 0; i < moves.size(); i++) {
 			move = _MinMaxMove( moves[i], dept_limit, dept+1, another(action));
 			if (best_move == NULL || cmp_move(action, move, best_move)) {

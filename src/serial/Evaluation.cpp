@@ -84,22 +84,22 @@ PieceTable::PieceTable(){
     memset((void *)score[epc_blacky], 0, sizeof(int)*64);
     for(int i=0; i<64; i++){
         // value of white
-        score[epc_wpawn][i]   = score_pawn[i];
-        score[epc_woff][i]    = score_off[i];
-        score[epc_wknight][i] = score_knight[i];
-        score[epc_wbishop][i] = score_bishop[i];
-        score[epc_wrook][i]   = score_rook[i];
-        score[epc_wqueen][i]  = score_queen[i];
-        score[epc_wking][i]   = score_king[i];
+        score[epc_wpawn][i]   = -score_pawn[i];
+        score[epc_woff][i]    = -score_off[i];
+        score[epc_wknight][i] = -score_knight[i];
+        score[epc_wbishop][i] = -score_bishop[i];
+        score[epc_wrook][i]   = -score_rook[i];
+        score[epc_wqueen][i]  = -score_queen[i];
+        score[epc_wking][i]   = -score_king[i];
 
         // value of black
-        score[epc_bpawn][i]   = -score_pawn[i];
-        score[epc_boff][i]    = -score_off[i];
-        score[epc_bknight][i] = -score_knight[i];
-        score[epc_bbishop][i] = -score_bishop[i];
-        score[epc_brook][i]   = -score_rook[i];
-        score[epc_bqueen][i]  = -score_queen[i];
-        score[epc_bking][i]   = -score_king[i];
+        score[epc_bpawn][i]   = score_pawn[i];
+        score[epc_boff][i]    = score_off[i];
+        score[epc_bknight][i] = score_knight[i];
+        score[epc_bbishop][i] = score_bishop[i];
+        score[epc_brook][i]   = score_rook[i];
+        score[epc_bqueen][i]  = score_queen[i];
+        score[epc_bking][i]   = score_king[i];
     }
 }
 
@@ -117,8 +117,10 @@ int ChessBoard::eval(int color){
 	for(int i = 0 ; i < 64 ; i++){
 		eval += myscore.score[boardMap[i]][i];
 	}
+    /*
 	if ( color == 0 ){
 		eval = -eval;
 	}
+    */
 	return eval;
 }
