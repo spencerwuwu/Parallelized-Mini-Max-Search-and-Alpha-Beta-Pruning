@@ -57,6 +57,7 @@ enum EPieceCode
 
 class ChessBoard; 
 class Piece;
+class PieceTable;
 
 class ChessBoard {
 
@@ -78,7 +79,7 @@ class ChessBoard {
 		int		getTurn		();
 
 
-		vector<ChessBoard*> listAllMove();
+		vector<ChessBoard*> listAllMove(int turn);
 
 		int getNum(int chess) const{
 			return pieceNum[chess];
@@ -93,10 +94,17 @@ class ChessBoard {
 	bool 	checkPiecePosition(string piece, int position);
 
 	// Piece function
-	bool 	movePiece	(char piece, int origin, int dest);
-	int 	eval		();
+	bool 	movePiece	(char piece, int origin, int dest, int myturn);
+	int 	eval		(int score);
 	void	removePiece	(int position);
 	~ChessBoard			();
+};
+
+class PieceTable{
+	public:
+		int score[16][64];
+		PieceTable();
+		~PieceTable();
 };
 
 class Piece {
@@ -107,6 +115,7 @@ class Piece {
 		int			color;
 
 		virtual bool checkmove(int orgin, int dest, int* myboard){
+            return true;
 		};
 		void messageError();
 
