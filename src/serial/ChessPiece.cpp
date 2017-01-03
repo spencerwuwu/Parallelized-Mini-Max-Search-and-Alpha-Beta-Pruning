@@ -234,8 +234,10 @@ bool Rook::checkmove(int origin, int dest, int* myboard){
 }
 bool Knight::checkmove(int origin, int dest, int* myboard){
 	// check aviability of movement
-	if( (dest - origin) % 17 == 0 	 	  // right-up
-			||	(dest - origin) % 15 == 0 // left-up
+	if( (dest - origin) == 17 	 	  // right-up
+			||	(dest - origin) == 15 // left-up
+			||	(dest - origin) == -17 // left-up
+			||	(dest - origin) == -15 // left-up
 	  ){
 		//apply move
 		return true;

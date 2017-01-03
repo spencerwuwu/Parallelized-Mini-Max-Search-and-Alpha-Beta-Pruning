@@ -73,8 +73,8 @@ int main(){
 	myboard->turn = 0;
 
 	while(1){
-		myboard->showTurn();
 
+		cout << "White's turn" << endl;
 		// input parser
 		cin >> in0 >> in1 >> in2;
 		piece	= in0[0];
