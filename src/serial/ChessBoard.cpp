@@ -159,11 +159,11 @@ bool checkPiecePosition(char piece, int position){
 	return true ;
 }
 
-bool ChessBoard::movePiece(char piece, int origin, int dest, int turn){
+bool ChessBoard::movePiece(char piece, int origin, int dest, int myturn){
 	int check=0;
 	bool finish=false;
 	if ( boardMap[origin] != epc_empty ){
-		if( pieceMap[boardMap[origin]]->color == turn ){
+		if( pieceMap[boardMap[origin]]->color == myturn ){
 			if( boardMap[dest] == epc_empty ) check=1;
 			else if ( pieceMap[boardMap[dest]]->color != pieceMap[boardMap[origin]]->color ) check=1;
 
@@ -188,15 +188,15 @@ int ChessBoard::getTurn() {
 	return turn;
 }
 
-vector<ChessBoard*> ChessBoard::listAllMove(int turn){
+vector<ChessBoard*> ChessBoard::listAllMove(int myturn){
 	vector<ChessBoard*> moves;
 	ChessBoard* temp = new ChessBoard;
 	*temp = *this;
 
 	for(int i = 0; i < 64; i++){
-		if ( boardMap[i] != epc_empty && pieceMap[boardMap[i]]->color == turn ){
+		if ( boardMap[i] != epc_empty && pieceMap[boardMap[i]]->color == myturn ){
             for( int j = 0; j < 64; j++){
-                if( i != j && temp->pieceMap[boardMap[i]]->checkmove(i,j,boardMap) && temp->movePiece('c', i, j, turn) ){
+                if( i != j && temp->pieceMap[boardMap[i]]->checkmove(i,j,boardMap) && temp->movePiece('c', i, j, myturn) ){
                     ChessBoard* input = new ChessBoard;
                     *input = *temp;
                     moves.push_back(input);

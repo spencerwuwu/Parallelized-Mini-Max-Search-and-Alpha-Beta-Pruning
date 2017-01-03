@@ -113,6 +113,7 @@ int main(){
 		cout << "==============================" << endl;
 
 		myboard->print();
+		myboard->turn = BLACK;
 
 		tmp = MinMax( myboard, 3);
         delete myboard;
