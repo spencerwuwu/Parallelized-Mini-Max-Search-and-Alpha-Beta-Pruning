@@ -52,16 +52,33 @@ static ChessBoard* _ABMinMaxMove(ChessBoard* board, int dept_limit, int dept, en
 			if (best_move == NULL || cmp_move(action, move, best_move)) {
 				best_move = move;
 				best_real_move = i;
-			}
-			if ( beta > alpha ){
-				ChessBoard* res = new ChessBoard;
-				*res = *moves[best_real_move];
-				for (int i = 0; i < moves.size(); i++) {
-					delete moves[i];
+				if ( another(action) == FIND_MAX ){
+					alpha = move->eval(BLACK);
 				}
-				return res;
+				else {
+					beta = move->eval(WHITE);
+				}
 			}
-
+			if ( another(action) == FIND_MAX ){
+				if ( beta > alpha ){
+					ChessBoard* res = new ChessBoard;
+					*res = *moves[best_real_move];
+					for (int i = 0; i < moves.size(); i++) {
+						delete moves[i];
+					}
+					return res;
+				}
+			}
+			else {
+				if ( beta < alpha ){
+					ChessBoard* res = new ChessBoard;
+					*res = *moves[best_real_move];
+					for (int i = 0; i < moves.size(); i++) {
+						delete moves[i];
+					}
+					return res;
+				}
+			}
 		}
 
 		ChessBoard* res = new ChessBoard;
