@@ -2,6 +2,7 @@
 
 #include "ChessBoard.hpp"
 #include "Search.hpp"
+#include "ABSearch.hpp"
 
 using namespace std;
 
@@ -120,7 +121,7 @@ int main(){
 		myboard->print();
 		myboard->turn = BLACK;
 
-		tmp = MinMax( myboard, 3);
+		tmp = ABMinMax( myboard, 3);
         delete myboard;
 		myboard = tmp;
 

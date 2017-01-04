@@ -116,11 +116,6 @@ int ChessBoard::eval(int color){
 	for(int i = 0 ; i < 64 ; i++){
 		eval += myscore.score[boardMap[i]][i];
 	}
-    /*
-	if ( color == 0 ){
-		eval = -eval;
-	}
-    */
 	return eval;
 }
 
