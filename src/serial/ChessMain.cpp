@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <cstring>
 #include "ChessBoard.hpp"
 #include "Search.hpp"
 #include "ABSearch.hpp"
@@ -57,7 +57,21 @@ int parse(char a, char b){
 	return rank*8+file;
 }
 
-int main(){
+enum SearchMethod {
+    S_NORMAL,
+    S_AB,
+    S_PARA
+};
+int main(int argc, char *argv[])
+{
+    enum SearchMethod method = S_NORMAL;
+    if (argc > 1) {
+        if (strcmp(argv[1], "ab") == 0) {
+            method = S_AB;
+        } else if (strcmp(argv[1], "p") == 0) {
+            method = S_PARA;
+        }
+    }
 	cout << "Start" << endl;
 	ChessBoard* myboard = new ChessBoard();
 	ChessBoard* tmp = new ChessBoard();
@@ -121,7 +135,18 @@ int main(){
 		myboard->print();
 		myboard->turn = BLACK;
 
-		tmp = ABMinMax( myboard, 3);
+        switch (method) {
+            case S_NORMAL:
+                tmp = MinMax( myboard, 3);
+                break;
+            case S_AB:
+                tmp = ABMinMax(myboard, 3);
+                break;
+            case S_PARA:
+                break;
+            default:
+                break;
+        }
         delete myboard;
 		myboard = tmp;
 
