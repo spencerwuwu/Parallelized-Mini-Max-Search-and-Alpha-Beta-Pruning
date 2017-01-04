@@ -13,6 +13,13 @@ typedef unsigned long long  U64;
 #define WHITE 0
 #define BLACK 1
 
+// for search
+enum FindAction {
+    FIND_MIN = 0, // WHITE
+    FIND_MAX // BLACK
+};
+
+// for board
 enum enumSquare{
 	a1, b1, c1, d1, e1, f1, g1, h1,
 	a2, b2, c2, d2, e2, f2, g2, h2,
@@ -220,4 +227,5 @@ class Pawn : public Piece {
 		virtual bool checkmove(int orgin, int dest, int* myboard);
 		~Pawn() {}
 };
+
 #endif
