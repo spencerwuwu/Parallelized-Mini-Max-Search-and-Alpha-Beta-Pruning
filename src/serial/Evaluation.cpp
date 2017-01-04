@@ -78,6 +78,17 @@ PieceTable::PieceTable(){
 		20,  20,   0,   0,   0,   0,  20,  20,
 		20,  30,  10,   0,   0,  10,  30,  20
 	};
+	// king end game
+	int score_king_end[64] = {
+		-50,-40,-30,-20,-20,-30,-40,-50,
+		-30,-20,-10,  0,  0,-10,-20,-30,
+		-30,-10, 20, 30, 30, 20,-10,-30,
+		-30,-10, 30, 40, 40, 30,-10,-30,
+		-30,-10, 30, 40, 40, 30,-10,-30,
+		-30,-10, 20, 30, 30, 20,-10,-30,
+		-30,-30,  0,  0,  0,  0,-30,-30,
+		-50,-30,-30,-30,-30,-30,-30,-50
+	};
 
     memset((void *)score[epc_empty], 0, sizeof(int)*64);
     memset((void *)score[epc_blacky], 0, sizeof(int)*64);
@@ -113,14 +124,30 @@ PieceTable myscore;
 int ChessBoard::eval(int color){
 	// color: white 0 negative, black 1 positive
     int eval=0;
+	int queen = 0;
 	for(int i = 0 ; i < 64 ; i++){
 		eval += myscore.score[boardMap[i]][i];
+		if(score[epc_bking][0] == -30){
+			if(boardMap[i] == epc_wqueen || boardMap[i] == epc_bqueen){
+				queen++;
+			}
+		}
 	}
     /*
 	if ( color == 0 ){
 		eval = -eval;
 	}
     */
+	if(queen == 0 && score[epc_bking][0] == -30){// change to king end game
+		for(int i=0; i<64; i++){
+    	    // value of white
+    	    score[epc_wking][i]   = -score_king_end[i];
+
+    	    // value of black
+    	    score[epc_bking][i]   = score_king_end[i];
+    	}
+	
+	}
 	return eval;
 }
 
