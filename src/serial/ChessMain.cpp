@@ -3,6 +3,7 @@
 #include "ChessBoard.hpp"
 #include "Search.hpp"
 #include "ABSearch.hpp"
+#include <time.h>
 
 using namespace std;
 
@@ -57,8 +58,22 @@ int parse(char a, char b){
 	return rank*8+file;
 }
 
-int main(){
+int main(int argc,char* argv[]){
 	cout << "Start" << endl;
+	int type = 0;
+	if ( argc > 1 ){
+		if ( argv[1][1] == 'p' ){
+			cout << "Parallel Minimax" << endl;
+			type = 1;
+		}
+		else if ( argv[1][1] == 'a' ){
+			cout << "Alpha-beta Search" << endl;
+			type = 2;
+		}
+		else if ( argv[1][1] == 'm' ){
+			cout << "Mini-Max Search" << endl;
+		}
+	}
 	ChessBoard* myboard = new ChessBoard();
 	ChessBoard* tmp = new ChessBoard();
 
@@ -70,42 +85,27 @@ int main(){
 	char piece;
 	int origin;
 	int dest;
+	clock_t begin, end;
 
 	myboard->turn = 0;
 
-	while(1){
+	if ( type == 2 ){
+		// Alpha-Beta Search
+		while(1){
 
-		if ( myboard->pieceNum[epc_bking] == 0 ){
-			cout << "White win!! " << endl << "=======================================";
-			cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
-			break;
-		}
-		cout << "White's turn" << endl;
-		// input parser
-		cin >> in0 >> in1 >> in2;
-		piece	= in0[0];
-		origin	= parse( in1[0], in1[1]);
-		dest	= parse( in2[0], in2[1]);
-
-		while( origin < 0 || dest < 0 || origin > 63 || dest > 63){
-			cout << "Input error" << endl;
-			// input parser
-			cin >> in0 >> in1 >> in2;
-			piece	= in0[0];
-			origin	= parse( in1[0], in1[1]);
-			dest	= parse( in2[0], in2[1]);
-		}
-
-		while ( !myboard->movePiece(piece, origin, dest, 0) ){
-			cout << "try again" << endl;
-			//
+			if ( myboard->pieceNum[epc_bking] == 0 ){
+				cout << "White win!! " << endl << "=======================================";
+				cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
+				break;
+			}
+			cout << "White's turn" << endl;
 			// input parser
 			cin >> in0 >> in1 >> in2;
 			piece	= in0[0];
 			origin	= parse( in1[0], in1[1]);
 			dest	= parse( in2[0], in2[1]);
 
-			while( origin < 0 || dest < 0 ){
+			while( origin < 0 || dest < 0 || origin > 63 || dest > 63){
 				cout << "Input error" << endl;
 				// input parser
 				cin >> in0 >> in1 >> in2;
@@ -114,23 +114,141 @@ int main(){
 				dest	= parse( in2[0], in2[1]);
 			}
 
+			while ( !myboard->movePiece(piece, origin, dest, 0) ){
+				cout << "try again" << endl;
+				//
+				// input parser
+				cin >> in0 >> in1 >> in2;
+				piece	= in0[0];
+				origin	= parse( in1[0], in1[1]);
+				dest	= parse( in2[0], in2[1]);
+
+				while( origin < 0 || dest < 0 ){
+					cout << "Input error" << endl;
+					// input parser
+					cin >> in0 >> in1 >> in2;
+					piece	= in0[0];
+					origin	= parse( in1[0], in1[1]);
+					dest	= parse( in2[0], in2[1]);
+				}
+
+			}
+
+			cout << "==============================" << endl;
+
+			myboard->print();
+			myboard->turn = BLACK;
+			cout << "Black's turn" << endl;
+
+			//timing
+			begin = clock();
+			tmp = ABMinMax( myboard, 4);
+			end = clock();
+			//timing
+
+			delete myboard;
+			myboard = tmp;
+
+			cout << "++++++++++++++++++++++++++++++" << endl;
+			cout << "time: " << (double)(end - begin)/CLOCKS_PER_SEC << endl;
+			cout << "++++++++++++++++++++++++++++++" << endl;
+
+			myboard->print();
+
+			if ( myboard->pieceNum[epc_wking] == 0 ){
+				cout << "Black win!! " << endl << "=======================================";
+				cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
+				break;
+			}
+			else if( myboard->pieceNum[epc_bking] == 0 ){
+				cout << "White win!! " << endl << "=======================================";
+				cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
+				break;
+			}
 		}
+	}
+	else if ( type == 1 ){
+		// Parallel Min-max Search
 
-		cout << "==============================" << endl;
 
-		myboard->print();
-		myboard->turn = BLACK;
 
-		tmp = ABMinMax( myboard, 3);
-        delete myboard;
-		myboard = tmp;
+	}
+	else {
+		// Mini-max Search
+		while(1){
 
-		myboard->print();
+			if ( myboard->pieceNum[epc_bking] == 0 ){
+				cout << "White win!! " << endl << "=======================================";
+				cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
+				break;
+			}
+			cout << "White's turn" << endl;
+			// input parser
+			cin >> in0 >> in1 >> in2;
+			piece	= in0[0];
+			origin	= parse( in1[0], in1[1]);
+			dest	= parse( in2[0], in2[1]);
 
-		if ( myboard->pieceNum[epc_wking] == 0 ){
-			cout << "Black win!! " << endl << "=======================================";
-			cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
-			break;
+			while( origin < 0 || dest < 0 || origin > 63 || dest > 63){
+				cout << "Input error" << endl;
+				// input parser
+				cin >> in0 >> in1 >> in2;
+				piece	= in0[0];
+				origin	= parse( in1[0], in1[1]);
+				dest	= parse( in2[0], in2[1]);
+			}
+
+			while ( !myboard->movePiece(piece, origin, dest, 0) ){
+				cout << "try again" << endl;
+				//
+				// input parser
+				cin >> in0 >> in1 >> in2;
+				piece	= in0[0];
+				origin	= parse( in1[0], in1[1]);
+				dest	= parse( in2[0], in2[1]);
+
+				while( origin < 0 || dest < 0 ){
+					cout << "Input error" << endl;
+					// input parser
+					cin >> in0 >> in1 >> in2;
+					piece	= in0[0];
+					origin	= parse( in1[0], in1[1]);
+					dest	= parse( in2[0], in2[1]);
+				}
+
+			}
+
+			cout << "==============================" << endl;
+
+			myboard->print();
+			myboard->turn = BLACK;
+			cout << "Black's turn" << endl;
+
+			//timing
+			begin = clock();
+			tmp = MinMax( myboard, 4);
+			end = clock();
+			//timing
+
+			delete myboard;
+			myboard = tmp;
+
+			cout << "++++++++++++++++++++++++++++++" << endl;
+			cout << "time: " << (double)(end - begin)/CLOCKS_PER_SEC << endl;
+			cout << "++++++++++++++++++++++++++++++" << endl;
+
+			myboard->print();
+
+			if ( myboard->pieceNum[epc_wking] == 0 ){
+				cout << "Black win!! " << endl << "+++++++++++++++++++++++++++++++++++++++";
+				cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
+				break;
+			}
+			else if( myboard->pieceNum[epc_bking] == 0 ){
+				cout << "White win!! " << endl << "+++++++++++++++++++++++++++++++++++++++";
+				cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
+				break;
+			}
 		}
 	}
 
