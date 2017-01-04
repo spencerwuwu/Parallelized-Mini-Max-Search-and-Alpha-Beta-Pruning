@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 
 	myboard->turn = 0;
 
-	if ( type == 2 ){
+	if ( type != 1 ){
 		// Alpha-Beta Search
 		while(1){
 
@@ -143,7 +143,13 @@ int main(int argc, char *argv[])
 
 			//timing
 			begin = clock();
-			tmp = ABMinMax( myboard, 4);
+			if ( type == 2 ){
+				tmp = ABMinMax( myboard, 6);
+			}
+			else {
+				tmp = MinMax( myboard, 4);
+			}
+
 			end = clock();
 			//timing
 
@@ -163,90 +169,6 @@ int main(int argc, char *argv[])
 			}
 			else if( myboard->pieceNum[epc_bking] == 0 ){
 				cout << "White win!! " << endl << "=======================================";
-				cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
-				break;
-			}
-		}
-	}
-	else if ( type == 1 ){
-		// Parallel Min-max Search
-
-
-
-	}
-	else {
-		// Mini-max Search
-		while(1){
-
-			if ( myboard->pieceNum[epc_bking] == 0 ){
-				cout << "White win!! " << endl << "=======================================";
-				cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
-				break;
-			}
-			cout << "White's turn" << endl;
-			// input parser
-			cin >> in0 >> in1 >> in2;
-			piece	= in0[0];
-			origin	= parse( in1[0], in1[1]);
-			dest	= parse( in2[0], in2[1]);
-
-			while( origin < 0 || dest < 0 || origin > 63 || dest > 63){
-				cout << "Input error" << endl;
-				// input parser
-				cin >> in0 >> in1 >> in2;
-				piece	= in0[0];
-				origin	= parse( in1[0], in1[1]);
-				dest	= parse( in2[0], in2[1]);
-			}
-
-			while ( !myboard->movePiece(piece, origin, dest, 0) ){
-				cout << "try again" << endl;
-				//
-				// input parser
-				cin >> in0 >> in1 >> in2;
-				piece	= in0[0];
-				origin	= parse( in1[0], in1[1]);
-				dest	= parse( in2[0], in2[1]);
-
-				while( origin < 0 || dest < 0 ){
-					cout << "Input error" << endl;
-					// input parser
-					cin >> in0 >> in1 >> in2;
-					piece	= in0[0];
-					origin	= parse( in1[0], in1[1]);
-					dest	= parse( in2[0], in2[1]);
-				}
-
-			}
-
-			cout << "==============================" << endl;
-
-			myboard->print();
-			myboard->turn = BLACK;
-			cout << "Black's turn" << endl;
-
-			//timing
-			begin = clock();
-			tmp = MinMax( myboard, 4);
-			end = clock();
-			//timing
-
-			delete myboard;
-			myboard = tmp;
-
-			cout << "++++++++++++++++++++++++++++++" << endl;
-			cout << "time: " << (double)(end - begin)/CLOCKS_PER_SEC << endl;
-			cout << "++++++++++++++++++++++++++++++" << endl;
-
-			myboard->print();
-
-			if ( myboard->pieceNum[epc_wking] == 0 ){
-				cout << "Black win!! " << endl << "+++++++++++++++++++++++++++++++++++++++";
-				cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
-				break;
-			}
-			else if( myboard->pieceNum[epc_bking] == 0 ){
-				cout << "White win!! " << endl << "+++++++++++++++++++++++++++++++++++++++";
 				cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
 				break;
 			}

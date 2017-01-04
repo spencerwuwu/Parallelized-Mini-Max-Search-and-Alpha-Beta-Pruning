@@ -14,17 +14,19 @@ Piece::Piece(const Piece &obj){
 
 bool King::checkmove( int origin, int dest, int* myboard){
 	bool finish = false;
-	if ( dest > origin ){
+	if ( dest/8 == origin/8 ){
+		if ( dest > origin ){
 			if( dest ==  origin+9 )			finish=true;
 			else if( dest ==  origin+8 )	finish=true;
 			else if( dest ==  origin+7 )	finish=true;
 			else if( dest ==  origin+1 )	finish=true;
-	}
-	else {
+		}
+		else {
 			if( dest ==  origin-9 )			finish=true;
 			else if( dest ==  origin-8 )	finish=true;
 			else if( dest ==  origin-7 )	finish=true;
 			else if( dest ==  origin-1 )	finish=true;
+		}
 	}
 
 	return finish;
@@ -125,7 +127,7 @@ bool Queen::checkmove(int origin, int dest, int* myboard){
 			if ( !check ) finish = true;
 		}
 	}
-			
+
 	return finish;
 }
 
@@ -229,24 +231,74 @@ bool Rook::checkmove(int origin, int dest, int* myboard){
 			if ( !check ) finish = true;
 		}
 	}
-			
+
 	return finish;
 }
 bool Knight::checkmove(int origin, int dest, int* myboard){
 	// check aviability of movement
-	if( (dest - origin) == 17 	 	   // right-up
-			||	(dest - origin) == 15  // left-up
-			||	(dest - origin) == -17 // left-up
-			||	(dest - origin) == -15 // left-up
-			||	(dest - origin) == -10 // left-up
-			||	(dest - origin) ==  10 // left-up
-			||	(dest - origin) == -6  // left-up
-			||	(dest - origin) == 6   // left-up
-	  ){
-		//apply move
-		return true;
+	bool finish = false;
+	if ( origin % 8 == 0 ){
+		if( (dest - origin) == 17 	 	   // right-up
+				||	(dest - origin) == -15 // left-up
+				||	(dest - origin) ==  10 // left-up
+				||	(dest - origin) == -6  // left-up
+		  ){
+			//apply move
+			finish = true;
+		}
 	}
-	else return false;
+	else if ( origin % 8 == 1 ){
+		if( (dest - origin) == 17 	 	   // right-up
+				||	(dest - origin) == 15  // left-up
+				||	(dest - origin) == -17 // left-up
+				||	(dest - origin) == -15 // left-up
+				||	(dest - origin) ==  10 // left-up
+				||	(dest - origin) == -6  // left-up
+		  ){
+			//apply move
+			finish = true;
+		}
+	}
+	else if ( origin % 8 == 6 ){
+		if( (dest - origin) == 17 	 	   // right-up
+				||	(dest - origin) == 15  // left-up
+				||	(dest - origin) == -17 // left-up
+				||	(dest - origin) == -15 // left-up
+				||	(dest - origin) == -10 // left-up
+				||	(dest - origin) == 6  // left-up
+		  ){
+			//apply move
+			finish = true;
+		}
+	}
+	else if ( origin % 8 == 6 ){
+		if( (dest - origin) == 17 	 	   // right-up
+				||	(dest - origin) == 15  // left-up
+				||	(dest - origin) == -17 // left-up
+				||	(dest - origin) == -10 // left-up
+				||	(dest - origin) == 6  // left-up
+		  ){
+			//apply move
+			finish = true;
+		}
+	}
+	else{
+		if( (dest - origin) == 17 	 	   // right-up
+				||	(dest - origin) == 15  // left-up
+				||	(dest - origin) == -15  // left-up
+				||	(dest - origin) == -17 // left-up
+				||	(dest - origin) == -15 // left-up
+				||	(dest - origin) ==  10 // left-up
+				||	(dest - origin) == -10 // left-up
+				||	(dest - origin) == -6  // left-up
+				||	(dest - origin) == 6  // left-up
+		  ){
+			//apply move
+			finish = true;
+		}
+	}
+
+	return finish;
 }
 bool Pawn::checkmove(int origin, int dest, int* myboard){
 	bool finish = false;
