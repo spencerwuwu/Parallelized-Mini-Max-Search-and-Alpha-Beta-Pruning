@@ -74,6 +74,11 @@ int main(){
 
 	while(1){
 
+		if ( myboard->pieceNum[epc_bking] == 0 ){
+			cout << "White win!! " << endl << "=======================================";
+			cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
+			break;
+		}
 		cout << "White's turn" << endl;
 		// input parser
 		cin >> in0 >> in1 >> in2;
@@ -120,6 +125,12 @@ int main(){
 		myboard = tmp;
 
 		myboard->print();
+
+		if ( myboard->pieceNum[epc_wking] == 0 ){
+			cout << "Black win!! " << endl << "=======================================";
+			cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
+			break;
+		}
 	}
 
 	return 0;

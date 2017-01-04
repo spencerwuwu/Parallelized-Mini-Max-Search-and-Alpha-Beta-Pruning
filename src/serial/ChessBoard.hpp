@@ -64,7 +64,7 @@ class ChessBoard {
 	public:
 		int boardMap[64]; 
 		map<int,Piece*> pieceMap;
-		int pieceNum[15];
+		int pieceNum[16];
 		int turn;
 
 
