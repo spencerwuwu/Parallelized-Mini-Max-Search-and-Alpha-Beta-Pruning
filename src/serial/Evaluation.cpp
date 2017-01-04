@@ -4,8 +4,8 @@
 using namespace std;
 
 #include "ChessBoard.hpp"
-
-PieceTable::PieceTable(){
+int t = 0;
+PieceTable::PieceTable(int tag){
 
 	int score_pawn[64]  =   {
 		0,   0,   0,   0,   0,   0,   0,   0,
@@ -78,6 +78,17 @@ PieceTable::PieceTable(){
 		20,  20,   0,   0,   0,   0,  20,  20,
 		20,  30,  10,   0,   0,  10,  30,  20
 	};
+	// king end game
+	int score_king_end[64] = {
+		-50,-40,-30,-20,-20,-30,-40,-50,
+		-30,-20,-10,  0,  0,-10,-20,-30,
+		-30,-10, 20, 30, 30, 20,-10,-30,
+		-30,-10, 30, 40, 40, 30,-10,-30,
+		-30,-10, 30, 40, 40, 30,-10,-30,
+		-30,-10, 20, 30, 30, 20,-10,-30,
+		-30,-30,  0,  0,  0,  0,-30,-30,
+		-50,-30,-30,-30,-30,-30,-30,-50
+	};
 
     memset((void *)score[epc_empty], 0, sizeof(int)*64);
     memset((void *)score[epc_blacky], 0, sizeof(int)*64);
@@ -89,7 +100,10 @@ PieceTable::PieceTable(){
         score[epc_wbishop][i] = -score_bishop[i];
         score[epc_wrook][i]   = -score_rook[i];
         score[epc_wqueen][i]  = -score_queen[i];
-        score[epc_wking][i]   = -score_king[i];
+		if(tag == 0)
+			score[epc_wking][i]   = -score_king[i];
+		else if(tag == 1)
+			score[epc_wking][i]   = -score_king_end[i];
 
         // value of black
         score[epc_bpawn][i]   = score_pawn[i];
@@ -98,7 +112,10 @@ PieceTable::PieceTable(){
         score[epc_bbishop][i] = score_bishop[i];
         score[epc_brook][i]   = score_rook[i];
         score[epc_bqueen][i]  = score_queen[i];
-        score[epc_bking][i]   = score_king[i];
+		if(tag == 0)
+			score[epc_bking][i]   = score_king[i];
+		else if(tag == 1)
+			score[epc_wking][i]   = score_king_end[i];
     }
 }
 
@@ -108,13 +125,22 @@ PieceTable::~PieceTable(){
 
 // temporarily declared here, maybe change to the other place but not in ChessBoard::eval, 
 // for the reason that we only need to create the table once in the bigin.
-PieceTable myscore;
 
 int ChessBoard::eval(int color){
 	// color: white 0 negative, black 1 positive
     int eval=0;
+	int queen = 0;
+	PieceTable myscore(t);
 	for(int i = 0 ; i < 64 ; i++){
 		eval += myscore.score[boardMap[i]][i];
+		if(t == 0){
+			if(boardMap[i] == epc_wqueen || boardMap[i] == epc_bqueen){
+				queen++;
+			}
+		}
+	}
+	if(queen == 0 && t == 0){// change to king end game
+		t = 1;
 	}
 	return eval;
 }

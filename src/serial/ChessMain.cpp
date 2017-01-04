@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <cstring>
 #include "ChessBoard.hpp"
 #include "Search.hpp"
 #include "ABSearch.hpp"
@@ -58,7 +58,8 @@ int parse(char a, char b){
 	return rank*8+file;
 }
 
-int main(int argc,char* argv[]){
+int main(int argc, char *argv[])
+{
 	cout << "Start" << endl;
 	int type = 0;
 	if ( argc > 1 ){
