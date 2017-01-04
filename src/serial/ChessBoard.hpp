@@ -103,7 +103,7 @@ class ChessBoard {
 class PieceTable{
 	public:
 		int score[16][64];
-		PieceTable();
+		PieceTable(int tag);
 		~PieceTable();
 };
 
