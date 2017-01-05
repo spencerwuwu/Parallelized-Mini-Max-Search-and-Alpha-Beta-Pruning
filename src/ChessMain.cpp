@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdio>
 #include <cstring>
 #include "ChessBoard.hpp"
 #include "Search.hpp"
@@ -81,14 +82,17 @@ int main(int argc, char *argv[])
         if ( argv[1][1] == 'p' ){
             cout << "Parallel Minimax" << endl;
             type = 1;
-        }
-        else if ( argv[1][1] == 'a' ){
+        } else if ( argv[1][1] == 'a' ){
             cout << "Alpha-beta Search" << endl;
             type = 2;
-        }
-        else if ( argv[1][1] == 'm' ){
+        } else if ( argv[1][1] == 'm' ){
             cout << "Mini-Max Search" << endl;
         }
+    }
+
+    int dept_limit = 4;
+    if (argc > 2) {
+        sscanf(argv[2], "%d", &dept_limit);
     }
 
     myboard->print();
@@ -99,8 +103,7 @@ int main(int argc, char *argv[])
     myboard->turn = 0;
 
     // Alpha-Beta Search
-    while(1){
-
+    while (1) {
         if ( myboard->pieceNum[epc_bking] == 0 ){
             cout << "White win!! " << endl << "=======================================";
             cout << endl << "+++++++++++++++++++++++++++++++++++++++" << endl;
@@ -153,14 +156,14 @@ int main(int argc, char *argv[])
         begin = clock();
         switch (type) {
             case 1:
-                tmp = PVMinMax( myboard, 4);
+                tmp = PVMinMax( myboard, dept_limit);
                 break;
             case 2:
-                tmp = ABMinMax( myboard, 4);
+                tmp = ABMinMax( myboard, dept_limit);
                 break;
             case 0:
             default:
-                tmp = MinMax( myboard, 4);
+                tmp = MinMax( myboard, dept_limit);
                 break;
         }
         end = clock();
