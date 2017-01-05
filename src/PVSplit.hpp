@@ -2,6 +2,6 @@
 #define PVSPLIT_HPP
 #include "ChessBoard.hpp"
 
-ChessBoard* PVMinMax(ChessBoard* board, int dept_limit);
+ChessBoard* PVMinMax(ChessBoard* board, int dept_limit, int nthreads);
 
 #endif
