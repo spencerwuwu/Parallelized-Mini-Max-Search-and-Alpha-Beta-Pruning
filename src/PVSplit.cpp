@@ -88,45 +88,34 @@ static void *thread_start(gpointer data, gpointer user_data)
     struct PoolData *pdata = (struct PoolData*)user_data;
     struct ThreadData *td = (struct ThreadData*)data;
 
-    int alpha, beta;
     g_mutex_lock(&pdata->ab_mutex);
-    alpha = pdata->alpha;
-    beta = pdata->beta;
+    int alpha = pdata->alpha;
+    int beta = pdata->beta;
     g_mutex_unlock(&pdata->ab_mutex);
-    if (alpha > beta) {
-        return NULL;
-    }
+
     ChessBoard *res = AB(td->board, td->dept, td->action, alpha, beta, pdata);
     if (res == NULL) {
         return NULL;
     }
+
     bool ab_updated = false;
     g_mutex_lock(&pdata->res_mutex);
-    ChessBoard *tm = pdata->best_move;
+    /* 這裡要跟 ABSearch 相反 因為傳進來就是子樹了 */
+    if (cmp_move(child(td->action), res, pdata->best_move)) { 
+        pdata->best_move = res;
+        pdata->best_real_move = td->task_id;
+        ab_updated = true;
+    }
     g_mutex_unlock(&pdata->res_mutex);
 
-    if (cmp_move(td->action, res, tm)) {
-        g_mutex_lock(&pdata->res_mutex);
-        if (pdata->best_move == tm || cmp_move(td->action, res, pdata->best_move)) {
-            pdata->best_move = res;
-            pdata->best_real_move = td->task_id;
-            ab_updated = true;
-        }
-        g_mutex_unlock(&pdata->res_mutex);
-    }
-
-    int nb;
-    int na;
     if (ab_updated) {
-        if (child(td->action) == FIND_MAX) {
-            nb = res->eval(BLACK); // upper bound
+        if (td->action == FIND_MAX) {
             g_mutex_lock(&pdata->ab_mutex);
-            pdata->beta = nb;
+            pdata->beta = res->eval(BLACK);
             g_mutex_unlock(&pdata->ab_mutex);
         } else {
-            na = res->eval(WHITE); // lower bound
             g_mutex_lock(&pdata->ab_mutex);
-            pdata->alpha = na;
+            pdata->alpha = res->eval(WHITE);
             g_mutex_unlock(&pdata->ab_mutex);
         }
     }
