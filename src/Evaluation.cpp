@@ -94,26 +94,26 @@ PieceTable::PieceTable(int tag){
     memset((void *)score[epc_blacky], 0, sizeof(int)*64);
     for(int i=0; i<64; i++){
         // value of white
-        score[epc_wpawn][i]   = score_pawn[63 - i];
-        score[epc_woff][i]    = score_off[63 - i];
-        score[epc_wknight][i] = score_knight[63 - i];
-        score[epc_wbishop][i] = score_bishop[63 - i];
-        score[epc_wrook][i]   = score_rook[63 - i];
-        score[epc_wqueen][i]  = score_queen[63 - i];
+        score[epc_bpawn][i]   = score_pawn[63 - i];
+        score[epc_boff][i]    = score_off[63 - i];
+        score[epc_bknight][i] = score_knight[63 - i];
+        score[epc_bbishop][i] = score_bishop[63 - i];
+        score[epc_brook][i]   = score_rook[63 - i];
+        score[epc_bqueen][i]  = score_queen[63 - i];
 		if(tag == 0)
-			score[epc_wking][i]   = score_king[63 - i];
+			score[epc_bking][i]   = score_king[63 - i];
 		else if(tag == 1)
-			score[epc_wking][i]   = score_king_end[63 - i];
+			score[epc_bking][i]   = score_king_end[63 - i];
 
         // value of black
-        score[epc_bpawn][i]   = score_pawn[i];
-        score[epc_boff][i]    = score_off[i];
-        score[epc_bknight][i] = score_knight[i];
-        score[epc_bbishop][i] = score_bishop[i];
-        score[epc_brook][i]   = score_rook[i];
-        score[epc_bqueen][i]  = score_queen[i];
+        score[epc_wpawn][i]   = score_pawn[i];
+        score[epc_woff][i]    = score_off[i];
+        score[epc_wknight][i] = score_knight[i];
+        score[epc_wbishop][i] = score_bishop[i];
+        score[epc_wrook][i]   = score_rook[i];
+        score[epc_wqueen][i]  = score_queen[i];
 		if(tag == 0)
-			score[epc_bking][i]   = score_king[i];
+			score[epc_wking][i]   = score_king[i];
 		else if(tag == 1)
 			score[epc_wking][i]   = score_king_end[i];
     }
