@@ -1,8 +1,10 @@
+GLIB=$(shell pkg-config --cflags --libs glib-2.0)
+
 all: build
 
 build: 
-	g++ ChessBoard.cpp ChessPiece.cpp Evaluation.cpp Search.cpp PVSplit.cpp ABSearch.cpp ChessMain.cpp -Wall -g -lpthread -o chess.out
-	g++ ChessBoard.cpp ChessPiece.cpp Evaluation.cpp Search.cpp PVSplit.cpp ABSearch.cpp ChessMainAuto.cpp -Wall -g -lpthread -o Auto.out
+	g++ ChessBoard.cpp ChessPiece.cpp Evaluation.cpp Search.cpp PVSplit.cpp ABSearch.cpp ChessMain.cpp -Wall -g $(GLIB) -o chess.out
+	g++ ChessBoard.cpp ChessPiece.cpp Evaluation.cpp Search.cpp PVSplit.cpp ABSearch.cpp ChessMainAuto.cpp -Wall -g $(GLIB) -o Auto.out
 
 clean:
 	rm chess.out -f
