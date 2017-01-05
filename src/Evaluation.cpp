@@ -94,16 +94,16 @@ PieceTable::PieceTable(int tag){
     memset((void *)score[epc_blacky], 0, sizeof(int)*64);
     for(int i=0; i<64; i++){
         // value of white
-        score[epc_wpawn][i]   = -score_pawn[i];
-        score[epc_woff][i]    = -score_off[i];
-        score[epc_wknight][i] = -score_knight[i];
-        score[epc_wbishop][i] = -score_bishop[i];
-        score[epc_wrook][i]   = -score_rook[i];
-        score[epc_wqueen][i]  = -score_queen[i];
+        score[epc_wpawn][i]   = score_pawn[63 - i];
+        score[epc_woff][i]    = score_off[63 - i];
+        score[epc_wknight][i] = score_knight[63 - i];
+        score[epc_wbishop][i] = score_bishop[63 - i];
+        score[epc_wrook][i]   = score_rook[63 - i];
+        score[epc_wqueen][i]  = score_queen[63 - i];
 		if(tag == 0)
-			score[epc_wking][i]   = -score_king[i];
+			score[epc_wking][i]   = score_king[63 - i];
 		else if(tag == 1)
-			score[epc_wking][i]   = -score_king_end[i];
+			score[epc_wking][i]   = score_king_end[63 - i];
 
         // value of black
         score[epc_bpawn][i]   = score_pawn[i];
@@ -132,7 +132,24 @@ int ChessBoard::eval(int color){
 	int queen = 0;
 	PieceTable myscore(t);
 	for(int i = 0 ; i < 64 ; i++){
-		eval += myscore.score[boardMap[i]][i];
+		if(boardMap[i] >= color * 10 && boardMap[i] <= color * 10 + 7){
+			eval += myscore.score[boardMap[i]][i];
+		}else {
+			if(boardMap[i] == epc_wpawn || boardMap[i] == epc_bpawn){
+				eval -= 100;
+			}else if(boardMap[i] == epc_wknight || boardMap[i] == epc_bknight){
+				eval -= 320;
+			}else if(boardMap[i] == epc_wbishop || boardMap[i] == epc_bbishop){
+				eval -= 330;
+			}else if(boardMap[i] == epc_wrook || boardMap[i] == epc_brook){
+				eval -= 500;
+			}else if(boardMap[i] == epc_wqueen || boardMap[i] == epc_bqueen){
+				eval -= 900;
+			}else if(boardMap[i] == epc_wking || boardMap[i] == epc_bking){
+				eval -= 20000;
+			}
+			
+		}
 		if(t == 0){
 			if(boardMap[i] == epc_wqueen || boardMap[i] == epc_bqueen){
 				queen++;
@@ -146,12 +163,12 @@ int ChessBoard::eval(int color){
 	// check
 	if ( color == BLACK ){
 		if ( pieceNum[epc_bking] == 0 ){
-			eval -= 1000;
+			eval -= 100000;
 		}
 	}
 	else {
 		if ( pieceNum[epc_wking] == 0 ){
-			eval += 1000;
+			eval += 100000;
 		}
 	}
 
