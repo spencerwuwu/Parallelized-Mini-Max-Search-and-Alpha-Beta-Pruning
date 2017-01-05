@@ -2,9 +2,14 @@
 #define SEARCH_HPP
 #include "ChessBoard.hpp"
 
+// for search
+enum FindAction {
+    FIND_MIN = 0, // WHITE
+    FIND_MAX // BLACK
+};
 ChessBoard* MinMax(ChessBoard* board, int dept_limit);
-ChessBoard* MinMove(ChessBoard* board, int dept_limit, int dept);
-ChessBoard* MaxMove(ChessBoard* board, int dept_limit, int dept);
+bool cmp_move(enum FindAction action, ChessBoard *move, ChessBoard *best_move);
+enum FindAction child(enum FindAction action);
 
 #endif
 
