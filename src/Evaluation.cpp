@@ -142,6 +142,20 @@ int ChessBoard::eval(int color){
 	if(queen == 0 && t == 0){// change to king end game
 		t = 1;
 	}
+
+	// check
+	if ( color == BLACK ){
+		if ( pieceNum[epc_bking] == 0 ){
+			eval -= 1000;
+		}
+	}
+	else {
+		if ( pieceNum[epc_wking] == 0 ){
+			eval += 1000;
+		}
+	}
+
+
 	return eval;
 }
 

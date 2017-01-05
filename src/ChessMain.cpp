@@ -144,7 +144,7 @@ int main(int argc, char *argv[])
 			//timing
 			begin = clock();
 			if ( type == 2 ){
-				tmp = ABMinMax( myboard, 6);
+				tmp = ABMinMax( myboard, 4);
 			}
 			else {
 				tmp = MinMax( myboard, 4);
