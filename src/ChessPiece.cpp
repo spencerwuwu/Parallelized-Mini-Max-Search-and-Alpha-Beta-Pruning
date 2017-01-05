@@ -304,45 +304,52 @@ bool Pawn::checkmove(int origin, int dest, int* myboard){
 	bool finish = false;
 	// check aviability of movement
 	// if haven't moved
-	if( this->color==WHITE ){  // white
-		if ( origin/8==6 ){					 // haven't been moved
-			if ( ( dest==origin-8 ) || ( dest==origin-16 ) ){
-				//apply move
-				finish = true;
+	if ( myboard[dest] == epc_empty ){
+		if( this->color==WHITE ){  // white
+			if ( origin/8==6 ){					 // haven't been moved
+				if ( ( dest==origin-8 ) || ( dest==origin-16 ) ){
+					//apply move
+					finish = true;
+				}
+			}
+			else {	//have been moved
+				if (  dest==origin-8 ){
+					//apply move
+					finish = true;
+				}
 			}
 		}
-		else {	//have been moved
-			if (  dest==origin-8 ){
-				//apply move
-				finish = true;
+		else { // white
+			if ( origin/8==1 ){					 // haven't been moved
+				if ( ( dest==origin+8 ) || ( dest==origin+16 ) ){
+					//apply move
+					finish = true;
+				}
 			}
-		}
-
-		if ( dest == origin - 7 || dest == origin - 9 ){
-			if ( myboard[dest] != epc_empty && myboard[dest] > epc_blacky){
-				finish = true;
-			}
-		}
-	}
-	else { // white
-		if ( origin/8==1 ){					 // haven't been moved
-			if ( ( dest==origin+8 ) || ( dest==origin+16 ) ){
-				//apply move
-				finish = true;
-			}
-		}
-		else {	//have been moved
-			if (  dest==origin+8 ){
-				//apply move
-				finish = true;
-			}
-		}
-
-		if ( dest == origin + 7 || dest == origin + 9 ){
-			if ( myboard[dest] != epc_empty && myboard[dest] < epc_blacky){
-				finish = true;
+			else {	//have been moved
+				if (  dest==origin+8 ){
+					//apply move
+					finish = true;
+				}
 			}
 		}
 	}
+	else {
+		if ( this->color == WHITE ){
+			if ( dest == origin - 7 || dest == origin - 9 ){
+				if ( myboard[dest] > epc_blacky){
+					finish = true;
+				}
+			}
+		}
+		else {
+			if ( dest == origin + 7 || dest == origin + 9 ){
+				if ( myboard[dest] < epc_blacky){
+					finish = true;
+				}
+			}
+		}
+	}
+
 	return finish;
 }
