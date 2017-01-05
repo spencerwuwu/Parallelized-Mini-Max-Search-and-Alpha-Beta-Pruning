@@ -70,6 +70,7 @@ int main(int argc, char *argv[])
     int dest;
     clock_t begin, end;
 
+	ifstream in("test/3.txt");
     ofstream time_out("time.txt");
     ofstream move_out("move.txt");
 
@@ -112,7 +113,7 @@ int main(int argc, char *argv[])
         }
         cout << "White's turn" << endl;
         // input parser
-        cin >> in0 >> in1 >> in2;
+        in >> in0 >> in1 >> in2;
         piece	= in0[0];
         origin	= parse( in1[0], in1[1]);
         dest	= parse( in2[0], in2[1]);
@@ -120,7 +121,7 @@ int main(int argc, char *argv[])
         while( origin < 0 || dest < 0 || origin > 63 || dest > 63){
             cout << "Input error" << endl;
             // input parser
-            cin >> in0 >> in1 >> in2;
+            in >> in0 >> in1 >> in2;
             piece	= in0[0];
             origin	= parse( in1[0], in1[1]);
             dest	= parse( in2[0], in2[1]);
@@ -130,7 +131,7 @@ int main(int argc, char *argv[])
             cout << "try again" << endl;
             //
             // input parser
-            cin >> in0 >> in1 >> in2;
+            in >> in0 >> in1 >> in2;
             piece	= in0[0];
             origin	= parse( in1[0], in1[1]);
             dest	= parse( in2[0], in2[1]);
@@ -138,7 +139,7 @@ int main(int argc, char *argv[])
             while( origin < 0 || dest < 0 ){
                 cout << "Input error" << endl;
                 // input parser
-                cin >> in0 >> in1 >> in2;
+                in >> in0 >> in1 >> in2;
                 piece	= in0[0];
                 origin	= parse( in1[0], in1[1]);
                 dest	= parse( in2[0], in2[1]);
