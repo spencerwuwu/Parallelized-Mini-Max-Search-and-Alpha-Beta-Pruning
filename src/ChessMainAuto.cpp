@@ -96,6 +96,11 @@ int main(int argc, char *argv[])
     }
 	cout << "dept" << dept_limit << endl;
 
+    int nthreads = 4;
+    if (argc > 3) {
+        sscanf(argv[3], "%d", &nthreads);
+    }
+
     myboard->print();
 
     cout  << endl << "input: piece origin destination"<< endl;
@@ -157,7 +162,7 @@ int main(int argc, char *argv[])
         begin = clock();
         switch (type) {
             case 1:
-                tmp = PVMinMax( myboard, dept_limit);
+                tmp = PVMinMax( myboard, dept_limit, nthreads);
                 break;
             case 2:
                 tmp = ABMinMax( myboard, dept_limit);
