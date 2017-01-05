@@ -47,7 +47,7 @@ static ChessBoard* _ABMinMaxMove(ChessBoard* board, int dept_limit, int dept, en
 		return board;
 	} else {
 		moves = board->listAllMove(action);
-		for (int i = 0; i < moves.size(); i++) {
+		for (int i = 0; i < (int)moves.size(); i++) {
 			move = _ABMinMaxMove( moves[i], dept_limit, dept+1, another(action), alpha, beta);
 			if (best_move == NULL || cmp_move(action, move, best_move)) {
 				best_move = move;
@@ -63,7 +63,7 @@ static ChessBoard* _ABMinMaxMove(ChessBoard* board, int dept_limit, int dept, en
 				if ( beta > alpha ){
 					ChessBoard* res = new ChessBoard;
 					*res = *moves[best_real_move];
-					for (int i = 0; i < moves.size(); i++) {
+					for (int i = 0; i < (int)moves.size(); i++) {
 						delete moves[i];
 					}
 					return res;
@@ -73,7 +73,7 @@ static ChessBoard* _ABMinMaxMove(ChessBoard* board, int dept_limit, int dept, en
 				if ( beta < alpha ){
 					ChessBoard* res = new ChessBoard;
 					*res = *moves[best_real_move];
-					for (int i = 0; i < moves.size(); i++) {
+					for (int i = 0; i < (int)moves.size(); i++) {
 						delete moves[i];
 					}
 					return res;
@@ -83,7 +83,7 @@ static ChessBoard* _ABMinMaxMove(ChessBoard* board, int dept_limit, int dept, en
 
 		ChessBoard* res = new ChessBoard;
 		*res = *moves[best_real_move];
-		for (int i = 0; i < moves.size(); i++) {
+		for (int i = 0; i < (int )moves.size(); i++) {
 			delete moves[i];
 		}
 		return res;

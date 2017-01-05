@@ -45,7 +45,7 @@ static ChessBoard* _MinMaxMove(ChessBoard* board, int dept_limit, int dept, enum
 		return board;
 	} else {
 		moves = board->listAllMove(action);
-		for (int i = 0; i < moves.size(); i++) {
+		for (int i = 0; i < (int)moves.size(); i++) {
 			move = _MinMaxMove( moves[i], dept_limit, dept+1, another(action));
 			if (best_move == NULL || cmp_move(action, move, best_move)) {
 				best_move = move;
@@ -55,7 +55,7 @@ static ChessBoard* _MinMaxMove(ChessBoard* board, int dept_limit, int dept, enum
 
         ChessBoard* res = new ChessBoard;
         *res = *moves[best_real_move];
-        for (int i = 0; i < moves.size(); i++) {
+        for (int i = 0; i < (int)moves.size(); i++) {
             delete moves[i];
         }
 		return res;
