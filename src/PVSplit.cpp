@@ -75,6 +75,9 @@ static ChessBoard* PVNode(ChessBoard* board, int dept_limit, int dept, enum Find
                     }
                 }
             }
+            if (alpha > beta) {
+                break;
+            }
         }
         free(children);
     }
