@@ -4,6 +4,7 @@
 #include "Search.hpp"
 #include "ABSearch.hpp"
 #include <time.h>
+#include <fstream>
 
 using namespace std;
 
@@ -60,8 +61,21 @@ int parse(char a, char b){
 
 int main(int argc, char *argv[])
 {
-	cout << "Start" << endl;
 	int type = 0;
+	string in0,in1,in2;
+	char piece;
+	int origin;
+	int dest;
+	clock_t begin, end;
+
+	ofstream time_out("time.txt");
+	ofstream move_out("move.txt");
+
+	ChessBoard* myboard = new ChessBoard();
+	ChessBoard* tmp = new ChessBoard();
+
+
+	cout << "Start" << endl;
 	if ( argc > 1 ){
 		if ( argv[1][1] == 'p' ){
 			cout << "Parallel Minimax" << endl;
@@ -75,18 +89,11 @@ int main(int argc, char *argv[])
 			cout << "Mini-Max Search" << endl;
 		}
 	}
-	ChessBoard* myboard = new ChessBoard();
-	ChessBoard* tmp = new ChessBoard();
 
 	myboard->print();
 
 	cout  << endl << "input: piece origin destination"<< endl;
 
-	string in0,in1,in2;
-	char piece;
-	int origin;
-	int dest;
-	clock_t begin, end;
 
 	myboard->turn = 0;
 
@@ -135,6 +142,7 @@ int main(int argc, char *argv[])
 
 			}
 
+			move_out << in0 << " " << in1 << " " << in2 << endl;
 			cout << "==============================" << endl;
 
 			myboard->print();
@@ -159,6 +167,8 @@ int main(int argc, char *argv[])
 			cout << "++++++++++++++++++++++++++++++" << endl;
 			cout << "time: " << (double)(end - begin)/CLOCKS_PER_SEC << endl;
 			cout << "++++++++++++++++++++++++++++++" << endl;
+
+			time_out << (double)(end - begin)/CLOCKS_PER_SEC << endl;
 
 			myboard->print();
 
