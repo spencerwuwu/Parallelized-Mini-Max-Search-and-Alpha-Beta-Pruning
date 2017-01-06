@@ -7,6 +7,7 @@
 #include "PVSplit.hpp"
 #include <time.h>
 #include <fstream>
+#include <sys/time.h>
 
 using namespace std;
 
@@ -68,9 +69,9 @@ int main(int argc, char *argv[])
     char piece;
     int origin;
     int dest;
-    clock_t begin, end;
+	struct timeval tvalBefore, tvalAfter;
 
-	ifstream in("test/3.txt");
+	ifstream in("test/2.txt");
     ofstream time_out("time.txt");
     ofstream move_out("move.txt");
 
@@ -160,7 +161,8 @@ int main(int argc, char *argv[])
         cout << "Black's turn" << endl;
 
         //timing
-        begin = clock();
+        //begin = clock();
+		gettimeofday (&tvalBefore, NULL);
         switch (type) {
             case 1:
                 tmp = PVMinMax( myboard, dept_limit, nthreads);
@@ -173,17 +175,18 @@ int main(int argc, char *argv[])
                 tmp = MinMax( myboard, dept_limit);
                 break;
         }
-        end = clock();
+		gettimeofday (&tvalAfter, NULL);
+        //end = clock();
         //timing
 
         delete myboard;
         myboard = tmp;
 
         cout << "++++++++++++++++++++++++++++++" << endl;
-        cout << "time: " << (double)(end - begin)/CLOCKS_PER_SEC << endl;
+        cout << "time: " << (double) (((tvalAfter.tv_sec - tvalBefore.tv_sec)*1000000L+tvalAfter.tv_usec) - tvalBefore.tv_usec)/1000000<< endl;
         cout << "++++++++++++++++++++++++++++++" << endl;
 
-        time_out << (double)(end - begin)/CLOCKS_PER_SEC << endl;
+       	time_out << "time: " << (double) (((tvalAfter.tv_sec - tvalBefore.tv_sec)*1000000L+tvalAfter.tv_usec) - tvalBefore.tv_usec)/1000000<< endl;
 
         myboard->print();
 
