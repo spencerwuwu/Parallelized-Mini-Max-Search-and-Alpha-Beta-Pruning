@@ -1,0 +1,11 @@
+Test Environment: 
+OS: ArchLinux 
+CPU: intel i7, 4 core
+Test Environment: 
+
+
+Test method:
+ Since that we are can not guarantee to have the same result by searching the same board, which we will explain the reason for it later, and that alpha-beta may cut up in the middle of the search, we compare our data by plotting the line chart of the time of each step for different serach methods and different depths. 
+So we have different graph for different search depth, each graph compares the time to search for each round by different search algorithm.
+
+To test the scalability of our algorithm, we compare the performance of different number of thread created in depth 5 and depth 6.
