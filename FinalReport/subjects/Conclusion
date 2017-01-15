@@ -1,6 +1,0 @@
-1. Seaching with parrallelized alpha-beta prunning may get a different result from the oridinary alpha-beta prunning. This may due to the cut off position of the search. By parrallelized alpha-beta, we divide our search tree and search in different thread. We may return a different result with the same score, located in the part that may be cut off directly while using non-parrallelized search, but being returned due to multithreading programming.
-This effect theorically won't theorically affect the precentage of winning the game since the score chosen is the same.
-
-2. By looking at the overall performance of the line graph, we can see that the performance of parrallelized alpha-beta has exceeded the original one at search depth 4. In our graphs we can see that sometimes the time required for the parrallelized is greater than original version in depth 4, it is because the alpha-beta search find the target and cut off too soon  and by parrallelizing we still have some thread create overhead.
-
-3. By our result of the scalibility test, we can see that the scalibility is indeed not good.
