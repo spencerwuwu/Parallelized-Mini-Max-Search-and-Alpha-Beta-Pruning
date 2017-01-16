@@ -4,7 +4,6 @@ all: build
 
 build: 
 	g++ ChessBoard.cpp ChessPiece.cpp Evaluation.cpp Search.cpp PVSplit.cpp ABSearch.cpp ChessMain.cpp -Wall -O1  -g $(GLIB) -o chess.out
-	g++ ChessBoard.cpp ChessPiece.cpp Evaluation.cpp Search.cpp PVSplit.cpp ABSearch.cpp ChessMainAuto.cpp -Wall -O1 -g $(GLIB) -o Auto.out
-
+	
 clean:
 	rm chess.out -f
